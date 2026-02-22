@@ -72,10 +72,31 @@ background:rgba(0,0,0,.75);
 backdrop-filter:blur(10px);
 display:flex;
 justify-content:space-between;
+align-items:center;
 z-index:1000;
 }
 
 .logo{font-weight:800;letter-spacing:3px}
+
+/* ================= BOTON INICIO ================= */
+.btn-home{
+padding:10px 22px;
+border:none;
+border-radius:8px;
+font-family:'Orbitron',sans-serif;
+font-weight:600;
+letter-spacing:2px;
+cursor:pointer;
+color:white;
+background:linear-gradient(45deg,#ff0000,#ff6a00);
+transition:.3s;
+box-shadow:0 0 12px rgba(255,0,0,.6);
+}
+
+.btn-home:hover{
+transform:scale(1.08);
+box-shadow:0 0 25px rgba(255,0,0,1);
+}
 
 /* ================= HERO ================= */
 .hero{
@@ -119,7 +140,7 @@ margin:40px 0 20px;
 letter-spacing:3px;
 }
 
-/* ================= TABLA POSICIONES ================= */
+/* ================= TABLA ================= */
 table{
 width:100%;
 border-collapse:collapse;
@@ -136,7 +157,6 @@ border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 th{background:rgba(255,255,255,.08)}
-
 tr:hover{background:rgba(255,255,255,.05)}
 
 /* ================= CALENDARIO ================= */
@@ -181,7 +201,6 @@ transition:.3s;
 .sound-zone:hover{
 background:rgba(255,255,255,.1);
 }
-
 </style>
 </head>
 
@@ -197,6 +216,7 @@ background:rgba(255,255,255,.1);
 
 <div class="navbar">
 <div class="logo">FORMULA WORLD GX</div>
+<button class="btn-home" onclick="goHome()">INICIO</button>
 </div>
 
 <section class="hero">
@@ -230,6 +250,7 @@ background:rgba(255,255,255,.1);
 </div>
 
 <audio id="engineSound" src="engine.mp3"></audio>
+<audio id="whoosh" src="whoosh.mp3"></audio>
 
 <script>
 
@@ -246,14 +267,20 @@ soundZone.addEventListener('mouseleave',()=>{
 engine.pause()
 })
 
-/* transicion cine enlaces */
-document.querySelectorAll('a').forEach(link=>{
-link.addEventListener('click',e=>{
-e.preventDefault()
-document.getElementById('transition').classList.add('active')
-setTimeout(()=>window.location=link.href,700)
-})
-})
+/* boton inicio */
+function goHome(){
+const transition=document.getElementById('transition')
+const sound=document.getElementById('whoosh')
+
+sound.currentTime=0
+sound.play()
+
+transition.classList.add('active')
+
+setTimeout(()=>{
+window.location.href="index.html"
+},700)
+}
 
 </script>
 
