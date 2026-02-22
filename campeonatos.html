@@ -29,6 +29,7 @@ padding:18px 50px;
 background:rgba(0,0,0,.75);
 backdrop-filter:blur(10px);
 display:flex;justify-content:space-between;
+align-items:center;
 z-index:1000;
 }
 .logo{font-weight:800;letter-spacing:3px}
@@ -38,6 +39,10 @@ padding:10px 22px;
 border:none;border-radius:8px;
 cursor:pointer;color:white;
 background:linear-gradient(45deg,#ff0000,#ff6a00);
+transition:.3s;
+}
+.btn:hover{
+transform:scale(1.05);
 }
 
 /* HERO */
@@ -74,39 +79,6 @@ transform:scale(1.07);
 box-shadow:0 40px 80px rgba(0,0,0,.9);
 }
 
-/* SECCIONES */
-.page{display:none}
-.page.active{display:block}
-
-/* CONTENIDO */
-.container{width:90%;margin:auto;padding-bottom:120px}
-.section-title{font-size:28px;margin:40px 0 20px}
-
-table{
-width:100%;border-collapse:collapse;
-background:rgba(255,255,255,.05);
-border-radius:12px;overflow:hidden;
-}
-th,td{padding:14px;border-bottom:1px solid rgba(255,255,255,.08)}
-th{background:rgba(255,255,255,.08)}
-
-.calendar{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-}
-.race{
-padding:20px;border-radius:14px;
-background:rgba(255,255,255,.05);
-}
-
-.sound-zone{
-padding:40px;margin-top:30px;
-border-radius:14px;
-background:rgba(255,255,255,.05);
-text-align:center;cursor:pointer;
-}
-
 /* MUSICA */
 .music-toggle{
 position:fixed;bottom:20px;left:20px;
@@ -131,9 +103,7 @@ color:white;cursor:pointer;z-index:2000;
 <button class="btn" onclick="goHome()">INICIO</button>
 </nav>
 
-<!-- ================= HOME ================= -->
-<div id="home" class="page active">
-
+<!-- HOME -->
 <section class="hero">
 <h1>CAMPEONATOS</h1>
 <p>Selecciona una categoría</p>
@@ -141,101 +111,53 @@ color:white;cursor:pointer;z-index:2000;
 
 <section class="grid">
 
-<div class="card" onclick="showPage('f1')">
-<img src="F1.png">
+<div class="card" onclick="openPage('formula1.html')">
+<img src="F1.png" alt="Formula 1">
 <div class="card-title">Formula 1</div>
 </div>
 
-<div class="card">
-<img src="F2.png">
+<div class="card" onclick="openPage('formula2.html')">
+<img src="F2.png" alt="Formula 2">
 <div class="card-title">Formula 2</div>
 </div>
 
-<div class="card">
-<img src="F3.png">
+<div class="card" onclick="openPage('formula3.html')">
+<img src="F3.png" alt="Formula 3">
 <div class="card-title">Formula 3</div>
 </div>
 
-<div class="card">
-<img src="F5.png">
+<div class="card" onclick="openPage('formula5.html')">
+<img src="F5.png" alt="Formula 5">
 <div class="card-title">Formula 5</div>
 </div>  
 
 </section>
-</div>
-
-<!-- ================= FORMULA 1 ================= -->
-<div id="f1" class="page">
-
-<section class="hero">
-<h1>FORMULA 1</h1>
-</section>
-
-<div class="container">
-
-<div class="section-title">TABLA DE POSICIONES</div>
-<table>
-<tr><th>#</th><th>Piloto</th><th>Equipo</th><th>Puntos</th></tr>
-<tr><td>1</td><td>Max Verstappen</td><td>Red Bull</td><td>575</td></tr>
-<tr><td>2</td><td>Lewis Hamilton</td><td>Mercedes</td><td>387</td></tr>
-<tr><td>3</td><td>Charles Leclerc</td><td>Ferrari</td><td>356</td></tr>
-<tr><td>4</td><td>Lando Norris</td><td>McLaren</td><td>290</td></tr>
-</table>
-
-<div class="section-title">CALENDARIO</div>
-<div class="calendar">
-<div class="race">Bahrein GP</div>
-<div class="race">Australia GP</div>
-<div class="race">Japón GP</div>
-</div>
-
-<div class="section-title">EXPERIENCIA MOTOR</div>
-<div class="sound-zone" id="soundZone">
-Pasa el mouse para escuchar el motor
-</div>
-
-</div>
-</div>
 
 <!-- AUDIO -->
-<audio id="engineSound" src="engine.mp3"></audio>
 <audio id="bgMusic" src="NFS.mp3" loop></audio>
 
 <button class="music-toggle" id="musicBtn" onclick="toggleMusic()">SONIDO OFF</button>
 
 <script>
 
-/* ================= IR A INDEX ================= */
+/* ===== IR A OTRA PAGINA ===== */
+function openPage(page){
+window.location.href = page;
+}
+
+/* ===== VOLVER A HOME ===== */
 function goHome(){
-window.location.href="index.html"
+window.location.href="index.html";
 }
 
-/* ================= CAMBIO PAGINA ================= */
-function showPage(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'))
-document.getElementById(id).classList.add('active')
-}
-
-/* ================= SONIDO MOTOR ================= */
-const engine=document.getElementById('engineSound')
-const zone=document.getElementById('soundZone')
-
-if(zone){
-zone.addEventListener('mouseenter',()=>{
-engine.currentTime=0
-engine.play()
-})
-zone.addEventListener('mouseleave',()=>engine.pause())
-}
-
-/* ================= MUSICA ================= */
+/* ===== MUSICA ===== */
 const music=document.getElementById("bgMusic")
 const btn=document.getElementById("musicBtn")
 
 music.volume=0.5
 
 document.addEventListener("click",()=>{
-music.play()
+music.play().catch(()=>{})
 btn.textContent="SONIDO ON"
 },{once:true})
 
