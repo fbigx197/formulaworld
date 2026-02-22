@@ -16,7 +16,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* ===== INTRO BROADCAST ===== */
+/* INTRO */
 .intro{
 position:fixed;
 inset:0;
@@ -36,7 +36,7 @@ animation:introAnim 4s forwards;
 100%{opacity:0;visibility:hidden}
 }
 
-/* ===== TRANSICION TV ===== */
+/* TRANSICION */
 .transition{
 position:fixed;
 inset:0;
@@ -48,7 +48,7 @@ z-index:9998;
 }
 .transition.active{transform:scaleY(1)}
 
-/* ===== BACKGROUND ===== */
+/* FONDO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -64,7 +64,7 @@ background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.95));
 z-index:-2;
 }
 
-/* ===== NAVBAR ===== */
+/* NAVBAR */
 .navbar{
 position:fixed;
 top:0;
@@ -89,11 +89,10 @@ background:linear-gradient(45deg,#ff0000,#ff6a00);
 color:white;
 }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero{
-height:45vh;
+height:40vh;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
@@ -101,14 +100,9 @@ text-align:center;
 .hero h1{
 font-size:60px;
 letter-spacing:10px;
-animation:glow 2s infinite alternate;
-}
-@keyframes glow{
-from{text-shadow:0 0 10px red}
-to{text-shadow:0 0 25px orange}
 }
 
-/* ===== CONTAINER ===== */
+/* CONTAINER */
 .container{
 width:90%;
 margin:auto;
@@ -121,23 +115,18 @@ border-left:5px solid red;
 padding-left:15px;
 }
 
-/* ===== RANKING ===== */
-.ranking{
-background:rgba(255,255,255,.05);
-padding:20px;
-border-radius:12px;
-}
-.ranking ul{
-list-style:none;
-}
-.ranking li{
-display:flex;
-justify-content:space-between;
-padding:8px 0;
-border-bottom:1px solid rgba(255,255,255,.1);
+/* FILTRO */
+select{
+padding:10px 15px;
+background:black;
+color:white;
+border:2px solid red;
+font-family:'Orbitron';
+cursor:pointer;
+margin-bottom:25px;
 }
 
-/* ===== PILOTOS ===== */
+/* PILOTOS */
 .pilot-cards{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -145,7 +134,7 @@ gap:20px;
 perspective:1000px;
 }
 .card{
-height:220px;
+height:240px;
 cursor:pointer;
 }
 .card-inner{
@@ -169,22 +158,64 @@ justify-content:center;
 align-items:center;
 backface-visibility:hidden;
 background:rgba(255,255,255,.05);
+padding:10px;
+text-align:center;
+}
+.card-front img{
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:10px;
 }
 .card-back{
 background:linear-gradient(135deg,#ff0000,#ff6a00);
 transform:rotateY(180deg);
 }
 
-/* ===== PADDOCK ZONE ===== */
+/* PRESENTACION */
+#presentationScreen{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:99999;
+opacity:0;
+pointer-events:none;
+transition:.5s;
+}
+#presentationScreen.active{
+opacity:1;
+pointer-events:auto;
+}
+#presentationScreen img{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid red;
+margin-bottom:20px;
+animation:pop .5s ease;
+}
+@keyframes pop{
+0%{transform:scale(0)}
+100%{transform:scale(1)}
+}
+
+/* PADDOCK */
 .paddock{
 margin-top:40px;
 padding:30px;
 background:rgba(255,255,255,.05);
 border-radius:12px;
 text-align:center;
+cursor:pointer;
 }
 
-/* ===== SOUND BTN ===== */
+/* SONIDO BTN */
 .music-toggle{
 position:fixed;
 bottom:20px;
@@ -216,18 +247,20 @@ z-index:2000;
 </div>
 
 <section class="hero">
-<h1>FORMULA WORLD GX</h1>
-<p>Simulación Oficial 2026</p>
+<h1>PILOTOS 2026</h1>
 </section>
 
 <div class="container">
 
-<div class="section-title">RANKING EN VIVO</div>
-<div class="ranking">
-<ul id="rankingList"></ul>
-</div>
+<div class="section-title">GRILLA OFICIAL</div>
 
-<div class="section-title">PILOTOS 2026</div>
+<select id="categoryFilter">
+<option value="all">Todas las categorías</option>
+<option value="F1">F1</option>
+<option value="F2">F2</option>
+<option value="F3">F3</option>
+</select>
+
 <div class="pilot-cards" id="pilotCards"></div>
 
 <div class="section-title">PADDOCK EXPERIENCE</div>
@@ -235,6 +268,17 @@ z-index:2000;
 Pasa el mouse o toca para escuchar el motor
 </div>
 
+</div>
+
+<!-- PRESENTACION -->
+<div id="presentationScreen">
+<img id="presentationImg">
+<h1 id="presentationName"></h1>
+<h2 id="presentationTeam" style="color:red;margin-top:10px;"></h2>
+<p id="presentationCategory"></p>
+<button onclick="closePresentation()" style="margin-top:30px;padding:10px 20px;background:red;border:none;color:white;font-family:'Orbitron';cursor:pointer;">
+CERRAR
+</button>
 </div>
 
 <audio id="engineSound" src="engine.mp3"></audio>
@@ -247,48 +291,59 @@ SONIDO OFF
 
 <script>
 
-/* ===== GENERAR 40 PILOTOS ===== */
-const pilotContainer=document.getElementById("pilotCards")
+/* ===== EDITA TUS 40 PILOTOS AQUI ===== */
+const pilotos = Array.from({length:40},(_,i)=>({
+foto:"foto"+(i+1)+".jpg",
+nombre:"Piloto "+(i+1),
+escuderia:"Equipo "+(i+1),
+categoria:"F1"
+}))
 
-for(let i=1;i<=40;i++){
-let card=document.createElement("div")
-card.className="card"
-card.innerHTML=`
+const container=document.getElementById("pilotCards")
+const filter=document.getElementById("categoryFilter")
+
+function renderPilots(cat="all"){
+container.innerHTML=""
+pilotos
+.filter(p=>cat==="all"||p.categoria===cat)
+.forEach(p=>{
+container.innerHTML+=`
+<div class="card" onclick="presentPilot('${p.foto}','${p.nombre}','${p.escuderia}','${p.categoria}')">
 <div class="card-inner">
 <div class="card-front">
-<h3>Piloto ${i}</h3>
-<p>Equipo</p>
-<p>F1</p>
+<img src="${p.foto}">
+<h3>${p.nombre}</h3>
+<p>${p.escuderia}</p>
+<p>${p.categoria}</p>
 </div>
 <div class="card-back">
 <p>Temporada 2026</p>
 <p>Acreditado FIA</p>
 </div>
 </div>
+</div>
 `
-pilotContainer.appendChild(card)
-}
-
-/* ===== RANKING DINAMICO ===== */
-const rankingList=document.getElementById("rankingList")
-let drivers=[]
-for(let i=1;i<=10;i++){
-drivers.push({name:"Piloto "+i,points:Math.floor(Math.random()*200)})
-}
-function updateRanking(){
-drivers.sort((a,b)=>b.points-a.points)
-rankingList.innerHTML=""
-drivers.forEach((d,index)=>{
-rankingList.innerHTML+=`<li><span>${index+1}. ${d.name}</span><span>${d.points} pts</span></li>`
 })
 }
-updateRanking()
-setInterval(()=>{
-drivers.forEach(d=>d.points+=Math.floor(Math.random()*5))
-updateRanking()
-},3000)
+renderPilots()
 
-/* ===== MUSICA ===== */
+filter.addEventListener("change",e=>{
+renderPilots(e.target.value)
+})
+
+/* PRESENTACION */
+function presentPilot(foto,nombre,team,cat){
+document.getElementById("presentationImg").src=foto
+document.getElementById("presentationName").textContent=nombre
+document.getElementById("presentationTeam").textContent=team
+document.getElementById("presentationCategory").textContent=cat
+document.getElementById("presentationScreen").classList.add("active")
+}
+function closePresentation(){
+document.getElementById("presentationScreen").classList.remove("active")
+}
+
+/* MUSICA */
 const music=document.getElementById("bgMusic")
 music.volume=0.5
 music.muted=true
@@ -303,15 +358,13 @@ document.getElementById("musicBtn").textContent="SONIDO OFF"
 }
 }
 
-/* ===== MOTOR ===== */
+/* MOTOR */
 const engine=document.getElementById("engineSound")
 const zone=document.getElementById("soundZone")
-
 zone.addEventListener("mouseenter",()=>{engine.currentTime=0;engine.play().catch(()=>{})})
 zone.addEventListener("mouseleave",()=>{engine.pause();engine.currentTime=0})
 zone.addEventListener("click",()=>{engine.currentTime=0;engine.play().catch(()=>{})})
 
-/* ===== TRANSICION ===== */
 function goHome(){
 document.getElementById("whoosh").play().catch(()=>{})
 document.getElementById("transition").classList.add("active")
