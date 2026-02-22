@@ -282,7 +282,335 @@ window.location.href="index.html"
 },700)
 }
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formula 1 | Formula World GX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Orbitron',sans-serif;color:white;overflow-x:hidden;background:black}
+
+/* ================= INTRO CINEMATICA ================= */
+.intro{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:42px;
+letter-spacing:6px;
+z-index:9999;
+animation:introFade 3.5s forwards;
+}
+
+@keyframes introFade{
+0%{opacity:1}
+80%{opacity:1}
+100%{opacity:0;visibility:hidden}
+}
+
+/* ================= TRANSICION CINE ================= */
+.page-transition{
+position:fixed;
+inset:0;
+background:black;
+z-index:9998;
+pointer-events:none;
+transform:scaleY(0);
+transform-origin:top;
+transition:.7s ease;
+}
+
+.page-transition.active{
+transform:scaleY(1);
+}
+
+/* ================= VIDEO FONDO ================= */
+.bg-video{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+object-fit:cover;
+z-index:-3;
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.95));
+z-index:-2;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+position:fixed;
+top:0;width:100%;
+padding:18px 50px;
+background:rgba(0,0,0,.75);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:1000;
+}
+
+.logo{font-weight:800;letter-spacing:3px}
+
+/* ================= BOTON INICIO ================= */
+.btn-home{
+padding:10px 22px;
+border:none;
+border-radius:8px;
+font-family:'Orbitron',sans-serif;
+font-weight:600;
+letter-spacing:2px;
+cursor:pointer;
+color:white;
+background:linear-gradient(45deg,#ff0000,#ff6a00);
+transition:.3s;
+box-shadow:0 0 12px rgba(255,0,0,.6);
+}
+
+.btn-home:hover{
+transform:scale(1.08);
+box-shadow:0 0 25px rgba(255,0,0,1);
+}
+
+/* ================= BOTON MUSICA ================= */
+.music-toggle{
+position:fixed;
+bottom:20px;
+left:20px;
+padding:12px 18px;
+border:none;
+border-radius:10px;
+background:rgba(0,0,0,.7);
+color:white;
+cursor:pointer;
+font-family:'Orbitron',sans-serif;
+letter-spacing:1px;
+backdrop-filter:blur(6px);
+transition:.3s;
+z-index:2000;
+}
+
+.music-toggle:hover{
+background:rgba(255,0,0,.7);
+}
+
+/* ================= HERO ================= */
+.hero{
+height:40vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding-top:80px;
+}
+
+.hero h1{
+font-size:60px;
+letter-spacing:8px;
+position:relative;
+overflow:hidden;
+}
+
+.hero h1::after{
+content:"";
+position:absolute;
+top:0;left:-120%;
+width:60%;height:100%;
+background:linear-gradient(120deg,transparent,white,transparent);
+animation:shine 4s infinite;
+}
+
+@keyframes shine{to{left:130%}}
+
+/* ================= CONTENIDO ================= */
+.container{
+width:90%;
+margin:auto;
+padding-bottom:120px;
+}
+
+.section-title{
+font-size:28px;
+margin:40px 0 20px;
+letter-spacing:3px;
+}
+
+/* ================= TABLA ================= */
+table{
+width:100%;
+border-collapse:collapse;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(10px);
+border-radius:12px;
+overflow:hidden;
+}
+
+th,td{
+padding:14px;
+text-align:left;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+th{background:rgba(255,255,255,.08)}
+tr:hover{background:rgba(255,255,255,.05)}
+
+/* ================= CALENDARIO ================= */
+.calendar{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.race{
+padding:20px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(8px);
+cursor:pointer;
+transition:.4s;
+}
+
+.race:hover{
+transform:translateY(-6px) scale(1.03);
+background:rgba(255,255,255,.08);
+}
+
+.race span{
+display:block;
+opacity:.7;
+font-size:13px;
+margin-top:5px;
+}
+
+/* ================= SONIDO HOVER ================= */
+.sound-zone{
+padding:40px;
+margin-top:30px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+text-align:center;
+cursor:pointer;
+transition:.3s;
+}
+
+.sound-zone:hover{
+background:rgba(255,255,255,.1);
+}
+</style>
+</head>
+
+<body>
+
+<div class="intro">FORMULA 1</div>
+<div class="page-transition" id="transition"></div>
+
+<video class="bg-video" autoplay muted loop playsinline>
+<source src="f1-video.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<div class="navbar">
+<div class="logo">FORMULA WORLD GX</div>
+<button class="btn-home" onclick="goHome()">INICIO</button>
+</div>
+
+<section class="hero">
+<h1>FORMULA 1</h1>
+</section>
+
+<div class="container">
+
+<div class="section-title">TABLA DE POSICIONES</div>
+<table>
+<tr><th>#</th><th>Piloto</th><th>Equipo</th><th>Puntos</th></tr>
+<tr><td>1</td><td>Max Verstappen</td><td>Red Bull</td><td>575</td></tr>
+<tr><td>2</td><td>Lewis Hamilton</td><td>Mercedes</td><td>387</td></tr>
+<tr><td>3</td><td>Charles Leclerc</td><td>Ferrari</td><td>356</td></tr>
+<tr><td>4</td><td>Lando Norris</td><td>McLaren</td><td>290</td></tr>
+</table>
+
+<div class="section-title">CALENDARIO MUNDIAL</div>
+<div class="calendar">
+<div class="race">Bahrein GP<span>02 Marzo</span></div>
+<div class="race">Arabia Saudita GP<span>09 Marzo</span></div>
+<div class="race">Australia GP<span>23 Marzo</span></div>
+<div class="race">Japón GP<span>06 Abril</span></div>
+<div class="race">Miami GP<span>04 Mayo</span></div>
+<div class="race">España GP<span>15 Junio</span></div>
+</div>
+
+<div class="section-title">EXPERIENCIA MOTOR</div>
+<div class="sound-zone" id="soundZone">Pasa el mouse para escuchar el motor</div>
+
+</div>
+
+<!-- audios -->
+<audio id="engineSound" src="engine.mp3"></audio>
+<audio id="whoosh" src="whoosh.mp3"></audio>
+<audio id="bgMusic" src="NFS.mp3" loop autoplay></audio>
+
+<!-- boton musica -->
+<button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
+SONIDO ON
+</button>
+
+<script>
+
+/* sonido motor hover */
+const soundZone=document.getElementById('soundZone')
+const engine=document.getElementById('engineSound')
+
+soundZone.addEventListener('mouseenter',()=>{
+engine.currentTime=0
+engine.play()
+})
+
+soundZone.addEventListener('mouseleave',()=>{
+engine.pause()
+})
+
+/* boton inicio */
+function goHome(){
+const transition=document.getElementById('transition')
+const sound=document.getElementById('whoosh')
+
+sound.currentTime=0
+sound.play()
+transition.classList.add('active')
+
+setTimeout(()=>{
+window.location.href="index.html"
+},700)
+}
+
+/* musica fondo */
+const music=document.getElementById("bgMusic")
+const btn=document.getElementById("musicBtn")
+
+music.volume=0.5
+
+function toggleMusic(){
+if(music.muted){
+music.muted=false
+btn.textContent="SONIDO ON"
+}else{
+music.muted=true
+btn.textContent="SONIDO OFF"
+}
+}
+
 </script>
 
 </body>
-</html>
+</html>  
