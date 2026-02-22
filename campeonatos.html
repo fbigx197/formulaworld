@@ -585,13 +585,17 @@ window.location.href="index.html"
 },700)
 }
 
-/* musica fondo */
-<audio id="bgMusic" src="NFS.mp3" loop autoplay></audio>
-    
+<script>
+
 const music=document.getElementById("bgMusic")
 const btn=document.getElementById("musicBtn")
 
 music.volume=0.5
+
+/* reproducir al primer clic del usuario (obligatorio navegador) */
+document.addEventListener("click",()=>{
+music.play()
+},{once:true})
 
 function toggleMusic(){
 if(music.muted){
