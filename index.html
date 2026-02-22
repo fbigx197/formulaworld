@@ -3,211 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formula World GX</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Orbitron', sans-serif;
-}
-
-body{
-    background:#000;
-    color:white;
-    overflow-x:hidden;
-}
-
-/* ================= NAVBAR ================= */
-.navbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    padding:18px 40px;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(12px);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:1000;
-    border-bottom:1px solid rgba(255,255,255,0.08);
-}
-
-.logo{
-    font-weight:800;
-    letter-spacing:2px;
-}
-
-/* ================= HERO ================= */
-.hero{
-    position:relative;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    overflow:hidden;
-    padding:0 20px;
-}
-
-.bg-video{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    filter:brightness(0.35);
-    z-index:-3;
-}
-
-.hero::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.9));
-    z-index:-2;
-}
-
-/* TITULO */
-.hero h1{
-    font-size:4rem;
-    font-weight:800;
-    letter-spacing:4px;
-    margin-bottom:10px;
-    position:relative;
-    overflow:hidden;
-}
-
-.hero h1::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-120%;
-    width:60%;
-    height:100%;
-    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.8), transparent);
-    transform:skewX(-25deg);
-    animation:shine 4s infinite;
-}
-
-@keyframes shine{
-    0%{left:-120%}
-    100%{left:150%}
-}
-
-.hero p{
-    opacity:0.8;
-    margin-bottom:30px;
-}
-
-/* ===== BOTONES PRINCIPALES ===== */
-.main-buttons{
-    display:flex;
-    gap:20px;
-}
-
-.main-buttons button{
-    padding:14px 30px;
-    border-radius:30px;
-    border:1px solid rgba(255,255,255,0.2);
-    background:rgba(255,255,255,0.05);
-    color:white;
-    cursor:pointer;
-    transition:.35s;
-    backdrop-filter:blur(10px);
-    font-size:1rem;
-}
-
-.main-buttons button:hover{
-    background:#00ffff;
-    color:black;
-    transform:scale(1.08);
-}
-
-/* ================= TRANSICION ================= */
-.transition{
-    position:fixed;
-    inset:0;
-    background:black;
-    z-index:2000;
-    transform:scaleY(0);
-    transform-origin:top;
-    pointer-events:none;
-}
-
-.transition.active{
-    animation:netflix .7s forwards;
-}
-
-@keythframes netflix{
-    0%{transform:scaleY(0)}
-    50%{transform:scaleY(1)}
-    100%{transform:scaleY(0); transform-origin:bottom}
-}
-
-@keyframes netflix{
-    0%{transform:scaleY(0)}
-    50%{transform:scaleY(1)}
-    100%{transform:scaleY(0); transform-origin:bottom}
-}
-
-@media(max-width:600px){
-    .hero h1{font-size:2.4rem}
-    .main-buttons{flex-direction:column}
-}
-</style>
-</head>
-
-<body>
-
-<div class="transition" id="transition"></div>
-
-<nav class="navbar">
-    <div class="logo">FORMULA WORLD GX</div>
-</nav>
-
-<section class="hero">
-
-    <video class="bg-video" autoplay muted loop playsinline>
-        <source src="f1-video.mp4" type="video/mp4">
-    </video>
-
-    <h1>FORMULA WORLD GX</h1>
-    <p>La velocidad redefine el futuro</p>
-
-    <div class="main-buttons">
-        <button onclick="go('campeonatos.html')">Campeonatos</button>
-        <button onclick="go('pilotos.html')">Pilotos</button>
-        <button onclick="go('resultados.html')">Resultados</button>
-    </div>
-
-</section>
-
-<script>
-const transition = document.getElementById('transition');
-function go(page){
-    transition.classList.add('active');
-    setTimeout(()=> location.href = page, 650);
-}
-</script>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formula 1 | Formula World GX</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Orbitron',sans-serif;color:white;overflow-x:hidden;background:black}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif}
+body{background:black;color:white;overflow-x:hidden}
 
 /* ================= INTRO CINEMATICA ================= */
 .intro{
@@ -222,25 +24,23 @@ letter-spacing:6px;
 z-index:9999;
 animation:introFade 3.5s forwards;
 }
-
 @keyframes introFade{
 0%{opacity:1}
 80%{opacity:1}
 100%{opacity:0;visibility:hidden}
 }
 
-/* ================= TRANSICION CINE ================= */
+/* ================= TRANSICION ================= */
 .page-transition{
 position:fixed;
 inset:0;
 background:black;
 z-index:9998;
-pointer-events:none;
 transform:scaleY(0);
 transform-origin:top;
 transition:.7s ease;
+pointer-events:none;
 }
-
 .page-transition.active{
 transform:scaleY(1);
 }
@@ -248,12 +48,12 @@ transform:scaleY(1);
 /* ================= VIDEO FONDO ================= */
 .bg-video{
 position:fixed;
-top:0;left:0;
-width:100%;height:100%;
+inset:0;
+width:100%;
+height:100%;
 object-fit:cover;
 z-index:-3;
 }
-
 .overlay{
 position:fixed;
 inset:0;
@@ -273,24 +73,19 @@ justify-content:space-between;
 align-items:center;
 z-index:1000;
 }
-
 .logo{font-weight:800;letter-spacing:3px}
 
-/* ================= BOTON INICIO ================= */
+/* ================= BOTON HOME ================= */
 .btn-home{
 padding:10px 22px;
 border:none;
 border-radius:8px;
-font-family:'Orbitron',sans-serif;
-font-weight:600;
-letter-spacing:2px;
-cursor:pointer;
 color:white;
 background:linear-gradient(45deg,#ff0000,#ff6a00);
+cursor:pointer;
 transition:.3s;
 box-shadow:0 0 12px rgba(255,0,0,.6);
 }
-
 .btn-home:hover{
 transform:scale(1.08);
 box-shadow:0 0 25px rgba(255,0,0,1);
@@ -307,16 +102,11 @@ border-radius:10px;
 background:rgba(0,0,0,.7);
 color:white;
 cursor:pointer;
-font-family:'Orbitron',sans-serif;
-letter-spacing:1px;
 backdrop-filter:blur(6px);
 transition:.3s;
 z-index:2000;
 }
-
-.music-toggle:hover{
-background:rgba(255,0,0,.7);
-}
+.music-toggle:hover{background:rgba(255,0,0,.7)}
 
 /* ================= HERO ================= */
 .hero{
@@ -328,14 +118,12 @@ align-items:center;
 text-align:center;
 padding-top:80px;
 }
-
 .hero h1{
 font-size:60px;
 letter-spacing:8px;
 position:relative;
 overflow:hidden;
 }
-
 .hero h1::after{
 content:"";
 position:absolute;
@@ -344,7 +132,6 @@ width:60%;height:100%;
 background:linear-gradient(120deg,transparent,white,transparent);
 animation:shine 4s infinite;
 }
-
 @keyframes shine{to{left:130%}}
 
 /* ================= CONTENIDO ================= */
@@ -353,7 +140,6 @@ width:90%;
 margin:auto;
 padding-bottom:120px;
 }
-
 .section-title{
 font-size:28px;
 margin:40px 0 20px;
@@ -369,13 +155,11 @@ backdrop-filter:blur(10px);
 border-radius:12px;
 overflow:hidden;
 }
-
 th,td{
 padding:14px;
 text-align:left;
 border-bottom:1px solid rgba(255,255,255,.08);
 }
-
 th{background:rgba(255,255,255,.08)}
 tr:hover{background:rgba(255,255,255,.05)}
 
@@ -385,7 +169,6 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 }
-
 .race{
 padding:20px;
 border-radius:14px;
@@ -394,12 +177,10 @@ backdrop-filter:blur(8px);
 cursor:pointer;
 transition:.4s;
 }
-
 .race:hover{
 transform:translateY(-6px) scale(1.03);
 background:rgba(255,255,255,.08);
 }
-
 .race span{
 display:block;
 opacity:.7;
@@ -417,7 +198,6 @@ text-align:center;
 cursor:pointer;
 transition:.3s;
 }
-
 .sound-zone:hover{
 background:rgba(255,255,255,.1);
 }
@@ -434,10 +214,10 @@ background:rgba(255,255,255,.1);
 </video>
 <div class="overlay"></div>
 
-<div class="navbar">
+<nav class="navbar">
 <div class="logo">FORMULA WORLD GX</div>
 <button class="btn-home" onclick="goHome()">INICIO</button>
-</div>
+</nav>
 
 <section class="hero">
 <h1>FORMULA 1</h1>
@@ -472,16 +252,15 @@ background:rgba(255,255,255,.1);
 <!-- audios -->
 <audio id="engineSound" src="engine.mp3"></audio>
 <audio id="whoosh" src="whoosh.mp3"></audio>
-<audio id="bgMusic" src="NFS.mp3" loop autoplay></audio>
+<audio id="bgMusic" src="NFS.mp3" loop></audio>
 
-<!-- boton musica -->
 <button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
-SONIDO ON
+SONIDO OFF
 </button>
 
 <script>
 
-/* sonido motor hover */
+/* ================= SONIDO MOTOR ================= */
 const soundZone=document.getElementById('soundZone')
 const engine=document.getElementById('engineSound')
 
@@ -489,47 +268,40 @@ soundZone.addEventListener('mouseenter',()=>{
 engine.currentTime=0
 engine.play()
 })
-
 soundZone.addEventListener('mouseleave',()=>{
 engine.pause()
 })
 
-/* boton inicio */
+/* ================= TRANSICION HOME ================= */
 function goHome(){
 const transition=document.getElementById('transition')
 const sound=document.getElementById('whoosh')
-
 sound.currentTime=0
 sound.play()
 transition.classList.add('active')
-
-setTimeout(()=>{
-window.location.href="index.html"
-},700)
+setTimeout(()=>{window.location.href="index.html"},700)
 }
 
-<script>
-
+/* ================= MUSICA ================= */
 const music=document.getElementById("bgMusic")
 const btn=document.getElementById("musicBtn")
-
 music.volume=0.5
 
-/* reproducir al primer clic del usuario (obligatorio navegador) */
 document.addEventListener("click",()=>{
 music.play()
+btn.textContent="SONIDO ON"
 },{once:true})
 
 function toggleMusic(){
-if(music.muted){
-music.muted=false
+if(music.paused){
+music.play()
 btn.textContent="SONIDO ON"
 }else{
-music.muted=true
+music.pause()
 btn.textContent="SONIDO OFF"
 }
 }
 
 </script>
 </body>
-</html>    
+</html>
