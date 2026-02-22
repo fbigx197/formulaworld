@@ -78,7 +78,7 @@ box-shadow:0 40px 80px rgba(0,0,0,.9);
 .page{display:none}
 .page.active{display:block}
 
-/* CONTENIDO F1 */
+/* CONTENIDO */
 .container{width:90%;margin:auto;padding-bottom:120px}
 .section-title{font-size:28px;margin:40px 0 20px}
 
@@ -119,14 +119,16 @@ color:white;cursor:pointer;z-index:2000;
 
 <body>
 
+<!-- VIDEO -->
 <video class="bg-video" autoplay muted loop playsinline>
 <source src="f1-video.mp4" type="video/mp4">
 </video>
 <div class="overlay"></div>
 
+<!-- NAVBAR -->
 <nav class="navbar">
 <div class="logo">FORMULA WORLD GX</div>
-<button class="btn" onclick="showPage('home')">INICIO</button>
+<button class="btn" onclick="goHome()">INICIO</button>
 </nav>
 
 <!-- ================= HOME ================= -->
@@ -198,21 +200,33 @@ Pasa el mouse para escuchar el motor
 
 <script>
 
-/* CAMBIO PAGINA */
+/* ================= IR A INDEX ================= */
+function goHome(){
+window.location.href="index.html"
+}
+
+/* ================= CAMBIO PAGINA ================= */
 function showPage(id){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'))
 document.getElementById(id).classList.add('active')
 }
 
-/* SONIDO MOTOR */
+/* ================= SONIDO MOTOR ================= */
 const engine=document.getElementById('engineSound')
 const zone=document.getElementById('soundZone')
-zone.addEventListener('mouseenter',()=>{engine.currentTime=0;engine.play()})
-zone.addEventListener('mouseleave',()=>engine.pause())
 
-/* MUSICA */
+if(zone){
+zone.addEventListener('mouseenter',()=>{
+engine.currentTime=0
+engine.play()
+})
+zone.addEventListener('mouseleave',()=>engine.pause())
+}
+
+/* ================= MUSICA ================= */
 const music=document.getElementById("bgMusic")
 const btn=document.getElementById("musicBtn")
+
 music.volume=0.5
 
 document.addEventListener("click",()=>{
