@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilotos | Formula World GX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:'Orbitron',sans-serif;
+background:#05070a;
+color:white;
+overflow-x:hidden;
+}
+
+/* ================= VIDEO FONDO OPCIONAL ================= */
+.bg-video{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-3;
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.7),rgba(0,0,0,.95));
+z-index:-2;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:18px 50px;
+background:rgba(0,0,0,.75);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:space-between;
+z-index:1000;
+}
+
+.logo{font-weight:800;letter-spacing:3px}
+
+/* ================= HERO ================= */
+.hero{
+height:35vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding-top:80px;
+}
+
+.hero h1{
+font-size:56px;
+letter-spacing:6px;
+position:relative;
+overflow:hidden;
+}
+
+.hero h1::after{
+content:"";
+position:absolute;
+top:0;left:-120%;
+width:60%;height:100%;
+background:linear-gradient(120deg,transparent,white,transparent);
+animation:shine 4s infinite;
+}
+
+@keyframes shine{to{left:130%}}
+
+.hero p{opacity:.6;margin-top:10px}
+
+/* ================= GRID ================= */
+.grid{
+width:92%;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:28px;
+padding-bottom:120px;
+}
+
+/* ================= CARD PILOTO ================= */
+.pilot-card{
+position:relative;
+border-radius:18px;
+overflow:hidden;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(12px);
+transition:.45s;
+cursor:pointer;
+perspective:1200px;
+}
+
+.pilot-inner{
+transition:transform .7s;
+transform-style:preserve-3d;
+}
+
+.pilot-card:hover .pilot-inner{
+transform:rotateY(180deg);
+}
+
+/* ================= FRONT ================= */
+.pilot-front{
+position:relative;
+}
+
+.pilot-photo{
+width:100%;
+height:260px;
+object-fit:cover;
+background:#111;
+}
+
+.pilot-info{
+padding:18px;
+}
+
+.pilot-name{
+font-size:18px;
+letter-spacing:1px;
+margin-bottom:6px;
+}
+
+.pilot-team{
+font-size:13px;
+opacity:.7;
+margin-bottom:6px;
+}
+
+.pilot-category{
+font-size:12px;
+color:#00d0ff;
+letter-spacing:1px;
+}
+
+/* ================= BACK ================= */
+.pilot-back{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.85);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+transform:rotateY(180deg);
+backface-visibility:hidden;
+}
+
+.pilot-back h3{
+margin-bottom:10px;
+}
+
+.pilot-back p{
+opacity:.7;
+font-size:13px;
+}
+
+/* ================= EFECTO HOVER PROFESIONAL ================= */
+.pilot-card:hover{
+transform:translateY(-8px) scale(1.03);
+box-shadow:0 40px 80px rgba(0,0,0,.8);
+}
+
+/* ================= MODAL PERFIL ================= */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:flex;
+justify-content:center;
+align-items:center;
+visibility:hidden;
+opacity:0;
+transition:.4s;
+z-index:2000;
+}
+
+.modal.active{
+visibility:visible;
+opacity:1;
+}
+
+.modal-content{
+background:#111;
+padding:40px;
+border-radius:18px;
+width:90%;
+max-width:600px;
+text-align:center;
+}
+
+.close-btn{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+background:#00d0ff;
+color:black;
+cursor:pointer;
+border-radius:8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- video opcional -->
+<!-- <video class="bg-video" autoplay muted loop playsinline>
+<source src="f1-video.mp4" type="video/mp4">
+</video> -->
+
+<div class="overlay"></div>
+
+<div class="navbar">
+<div class="logo">FORMULA WORLD GX</div>
+</div>
+
+<section class="hero">
+<h1>PILOTOS</h1>
+<p>Base de datos de pilotos del campeonato</p>
+</section>
+
+<section class="grid" id="pilotGrid"></section>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+<h2>PERFIL PILOTO</h2>
+<p>Información detallada disponible cuando agregues datos reales.</p>
+<button class="close-btn" onclick="closeModal()">Cerrar</button>
+</div>
+</div>
+
+<script>
+
+/* ================= 40 SLOTS VACIOS ================= */
+const pilotos = Array.from({length:40}, (_,i)=>({
+    nombre:"VACIO",
+    escuderia:"Escudería vacía",
+    categoria:"Categoría vacía",
+    foto:"placeholder.png"
+}))
+
+const grid=document.getElementById('pilotGrid')
+
+pilotos.forEach(p=>{
+const card=document.createElement('div')
+card.className='pilot-card'
+
+card.innerHTML=`
+<div class="pilot-inner">
+
+<div class="pilot-front">
+<img class="pilot-photo" src="${p.foto}">
+<div class="pilot-info">
+<div class="pilot-name">${p.nombre}</div>
+<div class="pilot-team">${p.escuderia}</div>
+<div class="pilot-category">${p.categoria}</div>
+</div>
+</div>
+
+<div class="pilot-back">
+<h3>Perfil piloto</h3>
+<p>Haz clic para abrir ficha completa</p>
+</div>
+
+</div>
+`
+
+card.onclick=()=>openModal()
+
+grid.appendChild(card)
+})
+
+/* ================= MODAL ================= */
+const modal=document.getElementById('modal')
+function openModal(){modal.classList.add('active')}
+function closeModal(){modal.classList.remove('active')}
+
+</script>
+
+</body>
+</html>
