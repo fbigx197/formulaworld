@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formula World GX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Orbitron', sans-serif;
+}
+
+body{
+    background:#000;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ================= HERO ================= */
+.hero{
+    position:relative;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    filter:brightness(0.35);
+    z-index:-2;
+}
+
+/* gradient overlay */
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+    z-index:-1;
+}
+
+.hero h1{
+    font-size:4rem;
+    font-weight:800;
+    letter-spacing:4px;
+    margin-bottom:15px;
+    animation:fadeDown 1.2s ease;
+}
+
+.hero p{
+    opacity:0.8;
+    font-size:1.2rem;
+    animation:fadeUp 1.5s ease;
+}
+
+/* ================= GRID ================= */
+.section-grid{
+    position:absolute;
+    bottom:60px;
+    width:90%;
+    max-width:1300px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.card{
+    position:relative;
+    height:260px;
+    border-radius:20px;
+    overflow:hidden;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.1);
+    transition:all .4s ease;
+    cursor:pointer;
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:0 20px 50px rgba(0,255,255,0.25);
+}
+
+.card img{
+    width:100%;
+    height:70%;
+    object-fit:cover;
+}
+
+.card-title{
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    font-size:1.4rem;
+    font-weight:600;
+}
+
+/* ================= PARTICLES ================= */
+#particles{
+    position:absolute;
+    inset:0;
+    z-index:-1;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeDown{
+    from{opacity:0; transform:translateY(-40px)}
+    to{opacity:1; transform:translateY(0)}
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(40px)}
+    to{opacity:1; transform:translateY(0)}
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1100px){
+    .section-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .section-grid{
+        grid-template-columns:1fr;
+        bottom:40px;
+    }
+
+    .hero h1{
+        font-size:2.4rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<section class="hero">
+    <h1>FORMULA WORLD GX</h1>
+    <p>La velocidad redefine el futuro</p>
+
+    <div class="section-grid">
+        
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1616423841125-8307665a0463?q=80&w=1200&auto=format&fit=crop">
+            <div class="card-title">Formula 1</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=1200&auto=format&fit=crop">
+            <div class="card-title">Formula 2</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1549921296-3a6b4f28e50d?q=80&w=1200&auto=format&fit=crop">
+            <div class="card-title">Formula 3</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1629276301820-0f3eedc29fd0?q=80&w=1200&auto=format&fit=crop">
+            <div class="card-title">Formula 5</div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle{
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+    }
+
+    update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+
+    draw(){
+        ctx.fillStyle = 'rgba(0,255,255,0.7)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
+    }
+}
+
+function init(){
+    particles = [];
+    for(let i=0;i<140;i++){
+        particles.push(new Particle());
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+        p.update();
+        p.draw();
+    });
+
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener('resize', ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    init();
+});
+</script>
+
+</body>
+</html>
