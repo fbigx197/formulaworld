@@ -292,12 +292,22 @@ SONIDO OFF
 <script>
 
 /* ===== EDITA TUS 40 PILOTOS AQUI ===== */
-const pilotos = Array.from({length:40},(_,i)=>({
-foto:"foto"+(i+1)+".jpg",
-nombre:"Piloto "+(i+1),
-escuderia:"Equipo "+(i+1),
-categoria:"F1"
-}))
+const pilotos = [
+
+{foto:"max.jpg", nombre:"Max Verstappen", escuderia:"Red Bull", categoria:"F1"},
+{foto:"lewis.jpg", nombre:"Lewis Hamilton", escuderia:"Mercedes", categoria:"F1"},
+{foto:"charles.jpg", nombre:"Charles Leclerc", escuderia:"Ferrari", categoria:"F1"},
+{foto:"lando.jpg", nombre:"Lando Norris", escuderia:"McLaren", categoria:"F1"},
+{foto:"oscar.jpg", nombre:"Oscar Piastri", escuderia:"McLaren", categoria:"F1"},
+
+{foto:"pilot6.jpg", nombre:"Piloto 6", escuderia:"Equipo 6", categoria:"F2"},
+{foto:"pilot7.jpg", nombre:"Piloto 7", escuderia:"Equipo 7", categoria:"F2"},
+{foto:"pilot8.jpg", nombre:"Piloto 8", escuderia:"Equipo 8", categoria:"F2"},
+{foto:"pilot9.jpg", nombre:"Piloto 9", escuderia:"Equipo 9", categoria:"F2"},
+{foto:"pilot10.jpg", nombre:"Piloto 10", escuderia:"Equipo 10", categoria:"F2"},
+
+// continúa hasta completar los 40
+]
 
 const container=document.getElementById("pilotCards")
 const filter=document.getElementById("categoryFilter")
