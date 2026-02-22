@@ -111,24 +111,52 @@ padding-top:80px;
 .container{width:90%;margin:auto;padding-bottom:120px}
 .section-title{font-size:28px;margin:40px 0 20px}
 
-/* tabla */
-table{
-width:100%;
-border-collapse:collapse;
-background:rgba(255,255,255,.05);
+/* tarjetas pilotos */
+.pilot-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:20px;
+  margin-top:20px;
+  perspective:1000px;
 }
-th,td{padding:14px;border-bottom:1px solid rgba(255,255,255,.08)}
-
-/* calendario */
-.calendar{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
+.card{
+  width:100%;
+  height:220px;
+  cursor:pointer;
 }
-.race{
-padding:20px;
-border-radius:14px;
-background:rgba(255,255,255,.05);
+.card-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  transition:transform 0.6s;
+  border-radius:12px;
+}
+.card:hover .card-inner{
+  transform:rotateY(180deg);
+}
+.card-front, .card-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:rgba(255,255,255,.05);
+  color:white;
+  font-family:'Orbitron',sans-serif;
+  text-align:center;
+  padding:10px;
+}
+.card-front h3{
+  margin-bottom:6px;
+}
+.card-back{
+  background:linear-gradient(135deg,#ff0000,#ff6a00);
+  transform:rotateY(180deg);
 }
 
 /* zona motor */
@@ -164,12 +192,19 @@ cursor:pointer;
 
 <div class="container">
 
-<div class="section-title">TABLA DE POSICIONES</div>
-<table>
-<tr><th>#</th><th>Piloto</th><th>Equipo</th><th>Puntos</th></tr>
-<tr><td>1</td><td>Max Verstappen</td><td>Red Bull</td><td>575</td></tr>
-<tr><td>2</td><td>Lewis Hamilton</td><td>Mercedes</td><td>387</td></tr>
-</table>
+<div class="section-title">PILOTOS 2026</div>
+<div class="pilot-cards">
+  <!-- 40 tarjetas vacías -->
+  <div class="card"><div class="card-inner"><div class="card-front"><h3>Nombre Piloto</h3><p>Escudería</p><p>F1</p></div><div class="card-back"><p>Temporada 2026</p><p>Detalles</p></div></div></div>
+  <div class="card"><div class="card-inner"><div class="card-front"><h3>Nombre Piloto</h3><p>Escudería</p><p>F1</p></div><div class="card-back"><p>Temporada 2026</p><p>Detalles</p></div></div></div>
+  <div class="card"><div class="card-inner"><div class="card-front"><h3>Nombre Piloto</h3><p>Escudería</p><p>F1</p></div><div class="card-back"><p>Temporada 2026</p><p>Detalles</p></div></div></div>
+  <div class="card"><div class="card-inner"><div class="card-front"><h3>Nombre Piloto</h3><p>Escudería</p><p>F1</p></div><div class="card-back"><p>Temporada 2026</p><p>Detalles</p></div></div></div>
+  <div class="card"><div class="card-inner"><div class="card-front"><h3>Nombre Piloto</h3><p>Escudería</p><p>F1</p></div><div class="card-back"><p>Temporada 2026</p><p>Detalles</p></div></div></div>
+  <div class="card"><div class="card-inner"><div class="card-front"><h3>Nombre Piloto</h3><p>Escudería</p><p>F1</p></div><div class="card-back"><p>Temporada 2026</p><p>Detalles</p></div></div></div>
+  <div class="card"><div class="card-inner"><div class="card-front"><h3>Nombre Piloto</h3><p>Escudería</p><p>F1</p></div><div class="card-back"><p>Temporada 2026</p><p>Detalles</p></div></div></div>
+  <div class="card"><div class="card-inner"><div class="card-front"><h3>Nombre Piloto</h3><p>Escudería</p><p>F1</p></div><div class="card-back"><p>Temporada 2026</p><p>Detalles</p></div></div></div>
+  <!-- ... repetir hasta completar 40 tarjetas -->
+</div>
 
 <div class="section-title">EXPERIENCIA MOTOR</div>
 <div class="sound-zone" id="soundZone">Pasa el mouse para escuchar el motor</div>
@@ -186,34 +221,23 @@ SONIDO ON
 </button>
 
 <script>
-
 /* musica fondo */
 const music=document.getElementById("bgMusic")
 const btn=document.getElementById("musicBtn")
 music.volume=0.5
 
-document.addEventListener("click",()=>{
-music.play()
-},{once:true})
+document.addEventListener("click",()=>{music.play()},{once:true})
 
 function toggleMusic(){
-if(music.muted){
-music.muted=false
-btn.textContent="SONIDO ON"
-}else{
-music.muted=true
-btn.textContent="SONIDO OFF"
-}
+if(music.muted){music.muted=false;btn.textContent="SONIDO ON"}
+else{music.muted=true;btn.textContent="SONIDO OFF"}
 }
 
 /* sonido motor */
 const engine=document.getElementById('engineSound')
 const zone=document.getElementById('soundZone')
 
-zone.addEventListener('mouseenter',()=>{
-engine.currentTime=0
-engine.play()
-})
+zone.addEventListener('mouseenter',()=>{engine.currentTime=0;engine.play()})
 zone.addEventListener('mouseleave',()=>engine.pause())
 
 /* boton inicio */
@@ -222,7 +246,6 @@ document.getElementById('whoosh').play()
 document.getElementById('transition').classList.add('active')
 setTimeout(()=>window.location="index.html",700)
 }
-
 </script>
 
 </body>
