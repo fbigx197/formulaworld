@@ -3,518 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campeonatos | Formula World GX</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Orbitron', sans-serif;
-    color:white;
-    overflow-x:hidden;
-}
-
-/* ================= VIDEO FONDO ================= */
-.bg-video{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-3;
-}
-
-/* overlay cine */
-.overlay{
-    position:fixed;
-    inset:0;
-    background:linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,.9));
-    z-index:-2;
-}
-
-/* luces ambientales */
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle at 20% 30%, rgba(0,255,200,.12), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(0,150,255,.12), transparent 40%);
-    animation:lights 10s ease-in-out infinite alternate;
-    z-index:-1;
-}
-
-@keyframes lights{
-    0%{ opacity:.4 }
-    100%{ opacity:1 }
-}
-
-/* ================= NAVBAR ================= */
-.navbar{
-    position:fixed;
-    top:0;
-    width:100%;
-    padding:18px 50px;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(10px);
-    display:flex;
-    justify-content:space-between;
-    z-index:1000;
-}
-
-.logo{
-    font-weight:800;
-    letter-spacing:3px;
-}
-
-.nav-links a{
-    margin-left:30px;
-    text-decoration:none;
-    color:white;
-    font-size:14px;
-    opacity:.8;
-}
-
-.nav-links a:hover{
-    opacity:1;
-}
-
-/* ================= HERO ================= */
-.hero{
-    height:45vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding-top:80px;
-}
-
-.hero h1{
-    font-size:56px;
-    letter-spacing:6px;
-    position:relative;
-    overflow:hidden;
-}
-
-/* luz que cruza */
-.hero h1::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-120%;
-    width:60%;
-    height:100%;
-    background:linear-gradient(120deg, transparent, white, transparent);
-    animation:shine 4s infinite;
-}
-
-@keyframes shine{
-    to{ left:130% }
-}
-
-.hero p{
-    opacity:.7;
-    margin-top:10px;
-}
-
-/* ================= GRID NETFLIX ================= */
-.grid{
-    width:90%;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:40px;
-    padding-bottom:100px;
-}
-
-/* ================= CARD 3D ================= */
-.card{
-    position:relative;
-    height:340px;
-    border-radius:18px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:.5s;
-}
-
-.card img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.7s;
-}
-
-.card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(to top, rgba(0,0,0,.85), transparent 60%);
-}
-
-.card-title{
-    position:absolute;
-    bottom:25px;
-    left:25px;
-    font-size:24px;
-}
-
-.card:hover{
-    transform:scale(1.08) rotateX(6deg) rotateY(-6deg);
-    box-shadow:0 40px 80px rgba(0,0,0,.9);
-}
-
-.card:hover img{
-    transform:scale(1.15);
-}
-
-/* brillo */
-.card::after{
-    content:"";
-    position:absolute;
-    top:-120%;
-    left:-120%;
-    width:60%;
-    height:200%;
-    background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
-    transform:rotate(25deg);
-    transition:.6s;
-}
-
-.card:hover::after{
-    top:120%;
-    left:120%;
-}
-
-/* animacion apertura */
-.card.opening{
-    animation:openCard .6s forwards;
-}
-
-@keyframes openCard{
-    60%{ transform:scale(1.25) }
-    100%{ transform:scale(1.15) }
-}
-</style>
-</head>
-
-<body>
-
-<!-- VIDEO -->
-<video class="bg-video" autoplay muted loop playsinline>
-    <source src="f1-video.mp4" type="video/mp4">
-</video>
-
-<div class="overlay"></div>
-
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="logo">WORLD GX</div>
-    <div class="nav-links">
-        <a href="index.html">Inicio</a>
-        <a href="#">Pilotos</a>
-        <a href="#">Resultados</a>
-    </div>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-    <h1>CAMPEONATOS</h1>
-    <p>Selecciona una categoría para explorar</p>
-</section>
-
-<!-- GRID -->
-<section class="grid">
-
-<div class="card" onclick="openCard(this,'formula1.html')">
-    <img src="F1.png">
-    <div class="card-title">Formula 1</div>
-</div>
-
-<div class="card" onclick="openCard(this,'formula2.html')">
-    <img src="F2.png">
-    <div class="card-title">Formula 2</div>
-</div>
-
-<div class="card" onclick="openCard(this,'formula3.html')">
-    <img src="F3.png">
-    <div class="card-title">Formula 3</div>
-</div>
-
-<div class="card" onclick="openCard(this,'formula5.html')">
-    <img src="F5.png">
-    <div class="card-title">Formula 5</div>
-</div>
-
-</section>
-
-<script>
-function openCard(card, link){
-    card.classList.add('opening');
-    setTimeout(()=> window.location.href = link, 500);
-}
-
-/* inclinacion mouse */
-document.querySelectorAll('.card').forEach(card=>{
-    card.addEventListener('mousemove', e=>{
-        const r = card.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width/2;
-        const y = e.clientY - r.top - r.height/2;
-        card.style.transform = `scale(1.08) rotateX(${y/20}deg) rotateY(${-x/20}deg)`;
-    });
-    card.addEventListener('mouseleave', ()=> card.style.transform="");
-});
-</script>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formula 1 | Formula World GX</title>
+<title>Formula World GX</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Orbitron',sans-serif;color:white;overflow-x:hidden;background:black}
+body{font-family:'Orbitron',sans-serif;color:white;background:black;overflow-x:hidden}
 
-/* ================= INTRO CINEMATICA ================= */
-.intro{
-position:fixed;
-inset:0;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:42px;
-letter-spacing:6px;
-z-index:9999;
-animation:introFade 3.5s forwards;
-}
-
-@keyframes introFade{
-0%{opacity:1}
-80%{opacity:1}
-100%{opacity:0;visibility:hidden}
-}
-
-/* ================= TRANSICION CINE ================= */
-.page-transition{
-position:fixed;
-inset:0;
-background:black;
-z-index:9998;
-pointer-events:none;
-transform:scaleY(0);
-transform-origin:top;
-transition:.7s ease;
-}
-
-.page-transition.active{
-transform:scaleY(1);
-}
-
-/* ================= VIDEO FONDO ================= */
+/* VIDEO */
 .bg-video{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-object-fit:cover;
-z-index:-3;
+position:fixed;inset:0;width:100%;height:100%;
+object-fit:cover;z-index:-3;
 }
-
 .overlay{
-position:fixed;
-inset:0;
+position:fixed;inset:0;
 background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.95));
 z-index:-2;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 .navbar{
-position:fixed;
-top:0;width:100%;
+position:fixed;top:0;width:100%;
 padding:18px 50px;
 background:rgba(0,0,0,.75);
 backdrop-filter:blur(10px);
-display:flex;
-justify-content:space-between;
-align-items:center;
+display:flex;justify-content:space-between;
 z-index:1000;
 }
-
 .logo{font-weight:800;letter-spacing:3px}
 
-/* ================= BOTON INICIO ================= */
-.btn-home{
+.btn{
 padding:10px 22px;
-border:none;
-border-radius:8px;
-font-family:'Orbitron',sans-serif;
-font-weight:600;
-letter-spacing:2px;
-cursor:pointer;
-color:white;
+border:none;border-radius:8px;
+cursor:pointer;color:white;
 background:linear-gradient(45deg,#ff0000,#ff6a00);
-transition:.3s;
-box-shadow:0 0 12px rgba(255,0,0,.6);
 }
 
-.btn-home:hover{
-transform:scale(1.08);
-box-shadow:0 0 25px rgba(255,0,0,1);
-}
-
-/* ================= BOTON MUSICA ================= */
-.music-toggle{
-position:fixed;
-bottom:20px;
-left:20px;
-padding:12px 18px;
-border:none;
-border-radius:10px;
-background:rgba(0,0,0,.7);
-color:white;
-cursor:pointer;
-font-family:'Orbitron',sans-serif;
-letter-spacing:1px;
-backdrop-filter:blur(6px);
-transition:.3s;
-z-index:2000;
-}
-
-.music-toggle:hover{
-background:rgba(255,0,0,.7);
-}
-
-/* ================= HERO ================= */
+/* HERO */
 .hero{
-height:40vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding-top:80px;
+height:45vh;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+text-align:center;padding-top:80px;
+}
+.hero h1{font-size:56px;letter-spacing:6px}
+
+/* GRID */
+.grid{
+width:90%;margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:40px;padding-bottom:120px;
+}
+.card{
+position:relative;height:320px;
+border-radius:18px;overflow:hidden;
+cursor:pointer;transition:.4s;
+}
+.card img{width:100%;height:100%;object-fit:cover}
+.card::before{
+content:"";position:absolute;inset:0;
+background:linear-gradient(to top,rgba(0,0,0,.85),transparent 60%);
+}
+.card-title{
+position:absolute;bottom:25px;left:25px;font-size:24px;
+}
+.card:hover{
+transform:scale(1.07);
+box-shadow:0 40px 80px rgba(0,0,0,.9);
 }
 
-.hero h1{
-font-size:60px;
-letter-spacing:8px;
-position:relative;
-overflow:hidden;
-}
+/* SECCIONES */
+.page{display:none}
+.page.active{display:block}
 
-.hero h1::after{
-content:"";
-position:absolute;
-top:0;left:-120%;
-width:60%;height:100%;
-background:linear-gradient(120deg,transparent,white,transparent);
-animation:shine 4s infinite;
-}
+/* CONTENIDO F1 */
+.container{width:90%;margin:auto;padding-bottom:120px}
+.section-title{font-size:28px;margin:40px 0 20px}
 
-@keyframes shine{to{left:130%}}
-
-/* ================= CONTENIDO ================= */
-.container{
-width:90%;
-margin:auto;
-padding-bottom:120px;
-}
-
-.section-title{
-font-size:28px;
-margin:40px 0 20px;
-letter-spacing:3px;
-}
-
-/* ================= TABLA ================= */
 table{
-width:100%;
-border-collapse:collapse;
+width:100%;border-collapse:collapse;
 background:rgba(255,255,255,.05);
-backdrop-filter:blur(10px);
-border-radius:12px;
-overflow:hidden;
+border-radius:12px;overflow:hidden;
 }
-
-th,td{
-padding:14px;
-text-align:left;
-border-bottom:1px solid rgba(255,255,255,.08);
-}
-
+th,td{padding:14px;border-bottom:1px solid rgba(255,255,255,.08)}
 th{background:rgba(255,255,255,.08)}
-tr:hover{background:rgba(255,255,255,.05)}
 
-/* ================= CALENDARIO ================= */
 .calendar{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 }
-
 .race{
-padding:20px;
-border-radius:14px;
+padding:20px;border-radius:14px;
 background:rgba(255,255,255,.05);
-backdrop-filter:blur(8px);
-cursor:pointer;
-transition:.4s;
 }
 
-.race:hover{
-transform:translateY(-6px) scale(1.03);
-background:rgba(255,255,255,.08);
-}
-
-.race span{
-display:block;
-opacity:.7;
-font-size:13px;
-margin-top:5px;
-}
-
-/* ================= SONIDO HOVER ================= */
 .sound-zone{
-padding:40px;
-margin-top:30px;
+padding:40px;margin-top:30px;
 border-radius:14px;
 background:rgba(255,255,255,.05);
-text-align:center;
-cursor:pointer;
-transition:.3s;
+text-align:center;cursor:pointer;
 }
 
-.sound-zone:hover{
-background:rgba(255,255,255,.1);
+/* MUSICA */
+.music-toggle{
+position:fixed;bottom:20px;left:20px;
+padding:12px 18px;border:none;
+border-radius:10px;background:rgba(0,0,0,.7);
+color:white;cursor:pointer;z-index:2000;
 }
 </style>
 </head>
 
 <body>
-
-<div class="intro">FORMULA 1</div>
-<div class="page-transition" id="transition"></div>
 
 <video class="bg-video" autoplay muted loop playsinline>
 <source src="f1-video.mp4" type="video/mp4">
 </video>
 <div class="overlay"></div>
 
-<div class="navbar">
+<nav class="navbar">
 <div class="logo">FORMULA WORLD GX</div>
-<button class="btn-home" onclick="goHome()">INICIO</button>
+<button class="btn" onclick="showPage('home')">INICIO</button>
+</nav>
+
+<!-- ================= HOME ================= -->
+<div id="home" class="page active">
+
+<section class="hero">
+<h1>CAMPEONATOS</h1>
+<p>Selecciona una categoría</p>
+</section>
+
+<section class="grid">
+
+<div class="card" onclick="showPage('f1')">
+<img src="F1.png">
+<div class="card-title">Formula 1</div>
 </div>
+
+<div class="card">
+<img src="F2.png">
+<div class="card-title">Formula 2</div>
+</div>
+
+<div class="card">
+<img src="F3.png">
+<div class="card-title">Formula 3</div>
+</div>
+
+</section>
+</div>
+
+<!-- ================= FORMULA 1 ================= -->
+<div id="f1" class="page">
 
 <section class="hero">
 <h1>FORMULA 1</h1>
@@ -531,83 +175,61 @@ background:rgba(255,255,255,.1);
 <tr><td>4</td><td>Lando Norris</td><td>McLaren</td><td>290</td></tr>
 </table>
 
-<div class="section-title">CALENDARIO MUNDIAL</div>
+<div class="section-title">CALENDARIO</div>
 <div class="calendar">
-<div class="race">Bahrein GP<span>02 Marzo</span></div>
-<div class="race">Arabia Saudita GP<span>09 Marzo</span></div>
-<div class="race">Australia GP<span>23 Marzo</span></div>
-<div class="race">Japón GP<span>06 Abril</span></div>
-<div class="race">Miami GP<span>04 Mayo</span></div>
-<div class="race">España GP<span>15 Junio</span></div>
+<div class="race">Bahrein GP</div>
+<div class="race">Australia GP</div>
+<div class="race">Japón GP</div>
 </div>
 
 <div class="section-title">EXPERIENCIA MOTOR</div>
-<div class="sound-zone" id="soundZone">Pasa el mouse para escuchar el motor</div>
-
+<div class="sound-zone" id="soundZone">
+Pasa el mouse para escuchar el motor
 </div>
 
-<!-- audios -->
-<audio id="engineSound" src="engine.mp3"></audio>
-<audio id="whoosh" src="whoosh.mp3"></audio>
-<audio id="bgMusic" src="NFS.mp3" loop autoplay></audio>
+</div>
+</div>
 
-<!-- boton musica -->
-<button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
-SONIDO ON
-</button>
+<!-- AUDIO -->
+<audio id="engineSound" src="engine.mp3"></audio>
+<audio id="bgMusic" src="NFS.mp3" loop></audio>
+
+<button class="music-toggle" id="musicBtn" onclick="toggleMusic()">SONIDO OFF</button>
 
 <script>
 
-/* sonido motor hover */
-const soundZone=document.getElementById('soundZone')
-const engine=document.getElementById('engineSound')
-
-soundZone.addEventListener('mouseenter',()=>{
-engine.currentTime=0
-engine.play()
-})
-
-soundZone.addEventListener('mouseleave',()=>{
-engine.pause()
-})
-
-/* boton inicio */
-function goHome(){
-const transition=document.getElementById('transition')
-const sound=document.getElementById('whoosh')
-
-sound.currentTime=0
-sound.play()
-transition.classList.add('active')
-
-setTimeout(()=>{
-window.location.href="index.html"
-},700)
+/* CAMBIO PAGINA */
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'))
+document.getElementById(id).classList.add('active')
 }
 
-<script>
+/* SONIDO MOTOR */
+const engine=document.getElementById('engineSound')
+const zone=document.getElementById('soundZone')
+zone.addEventListener('mouseenter',()=>{engine.currentTime=0;engine.play()})
+zone.addEventListener('mouseleave',()=>engine.pause())
 
+/* MUSICA */
 const music=document.getElementById("bgMusic")
 const btn=document.getElementById("musicBtn")
-
 music.volume=0.5
 
-/* reproducir al primer clic del usuario (obligatorio navegador) */
 document.addEventListener("click",()=>{
 music.play()
+btn.textContent="SONIDO ON"
 },{once:true})
 
 function toggleMusic(){
-if(music.muted){
-music.muted=false
+if(music.paused){
+music.play()
 btn.textContent="SONIDO ON"
 }else{
-music.muted=true
+music.pause()
 btn.textContent="SONIDO OFF"
 }
 }
 
 </script>
-
 </body>
-</html>    
+</html>
