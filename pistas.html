@@ -191,8 +191,10 @@ inset:0;
 background:rgba(0,0,0,.95);
 display:flex;
 flex-direction:column;
-justify-content:center;
 align-items:center;
+justify-content:flex-start;
+padding:120px 20px 60px 20px;
+overflow-y:auto;
 z-index:99999;
 opacity:0;
 pointer-events:none;
@@ -208,6 +210,8 @@ pointer-events:auto;
 #presentationScreen img{
 width:600px;
 max-width:90%;
+max-height:60vh;
+object-fit:contain;
 border-radius:18px;
 margin-bottom:30px;
 transform:scale(.6);
@@ -227,7 +231,9 @@ margin-bottom:15px;
 opacity:0;
 transform:translateY(30px);
 transition:.6s .2s;
+text-align:center;
 }
+
 #presentationScreen.active #presentationName{
 opacity:1;
 transform:translateY(0);
@@ -239,15 +245,20 @@ font-size:18px;
 opacity:0;
 transform:translateY(30px);
 transition:.6s .3s;
+text-align:center;
+max-width:700px;
 }
+
 #presentationScreen.active #presentationDesc{
 opacity:1;
 transform:translateY(0);
 }
 
-/* BOTON */
+/* BOTON FIJO */
 .close-btn{
-margin-top:40px;
+position:fixed;
+top:30px;
+right:40px;
 padding:12px 25px;
 background:red;
 border:none;
@@ -255,6 +266,7 @@ color:white;
 font-family:'Orbitron';
 cursor:pointer;
 border-radius:8px;
+z-index:100000;
 }
 
 /* SONIDO */
@@ -338,17 +350,16 @@ z-index:2000;
 
 <!-- PRESENTACION -->
 <div id="presentationScreen">
+<button class="close-btn" onclick="closePresentation()">CERRAR</button>
 <img id="presentationImg">
 <h1 id="presentationName"></h1>
 <p id="presentationDesc"></p>
-<button class="close-btn" onclick="closePresentation()">CERRAR</button>
 </div>
 
 <audio id="bgMusic" src="f1mp3.mp3.mp3" loop></audio>
 <button class="music-toggle" onclick="toggleMusic()" id="musicBtn">SONIDO OFF</button>
 
 <script>
-
 function presentTrack(img,name,desc){
 document.getElementById("presentationImg").src=img
 document.getElementById("presentationName").textContent=name
@@ -382,7 +393,6 @@ music.muted=true
 document.getElementById("musicBtn").textContent="SONIDO OFF"
 }
 }
-
 </script>
 
 </body>
