@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pistas | Formula World GX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Orbitron',sans-serif;
+background:black;
+color:white;
+overflow-x:hidden;
+}
+
+/* INTRO */
+.intro{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:42px;
+letter-spacing:8px;
+z-index:9999;
+animation:introAnim 4s forwards;
+}
+@keyframes introAnim{
+0%{opacity:0;transform:scale(1.2)}
+30%{opacity:1}
+80%{opacity:1}
+100%{opacity:0;visibility:hidden}
+}
+
+/* TRANSICION */
+.transition{
+position:fixed;
+inset:0;
+background:black;
+transform:scaleY(0);
+transform-origin:top;
+transition:.6s ease;
+z-index:9998;
+}
+.transition.active{transform:scaleY(1)}
+
+/* FONDO */
+.bg-video{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-3;
+}
+.overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.95));
+z-index:-2;
+}
+
+/* NAVBAR */
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:18px 50px;
+background:rgba(0,0,0,.85);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:1000;
+border-bottom:2px solid red;
+}
+.logo{font-weight:800;letter-spacing:3px}
+.btn{
+padding:10px 22px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-family:'Orbitron';
+background:linear-gradient(45deg,#ff0000,#ff6a00);
+color:white;
+}
+
+/* HERO */
+.hero{
+height:40vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+.hero h1{
+font-size:60px;
+letter-spacing:10px;
+}
+
+/* CONTAINER */
+.container{
+width:90%;
+margin:auto;
+padding-bottom:120px;
+}
+.section-title{
+margin:50px 0 20px;
+font-size:26px;
+border-left:5px solid red;
+padding-left:15px;
+}
+
+/* GRID PISTAS */
+.track-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+perspective:1000px;
+}
+
+.card{
+height:320px;
+cursor:pointer;
+}
+
+.card-inner{
+position:relative;
+width:100%;
+height:100%;
+transition:transform .8s;
+transform-style:preserve-3d;
+}
+
+.card:hover .card-inner{
+transform:rotateY(180deg);
+}
+
+.card-front,.card-back{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:14px;
+backface-visibility:hidden;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+background:rgba(255,255,255,.05);
+}
+
+.card-front img{
+width:100%;
+height:100%;
+object-fit:cover;
+position:absolute;
+z-index:-1;
+filter:brightness(.7);
+transition:.5s;
+}
+
+.card:hover img{
+filter:brightness(1);
+transform:scale(1.05);
+}
+
+.card-front h2{
+padding:20px;
+font-size:24px;
+}
+
+.card-back{
+background:linear-gradient(135deg,#ff0000,#ff6a00);
+transform:rotateY(180deg);
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+/* PRESENTACION */
+#presentationScreen{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:99999;
+opacity:0;
+pointer-events:none;
+transition:.5s;
+}
+#presentationScreen.active{
+opacity:1;
+pointer-events:auto;
+}
+#presentationScreen img{
+width:400px;
+max-width:90%;
+border-radius:14px;
+margin-bottom:25px;
+animation:zoom .5s ease;
+}
+@keyframes zoom{
+0%{transform:scale(0)}
+100%{transform:scale(1)}
+}
+
+/* SONIDO BTN */
+.music-toggle{
+position:fixed;
+bottom:20px;
+left:20px;
+padding:12px 18px;
+border:none;
+border-radius:10px;
+background:rgba(0,0,0,.8);
+color:white;
+cursor:pointer;
+z-index:2000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="intro">PISTAS OFICIALES</div>
+<div class="transition" id="transition"></div>
+
+<video class="bg-video" autoplay muted loop playsinline>
+<source src="track-video.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<div class="navbar">
+<div class="logo">FORMULA WORLD GX</div>
+<button class="btn" onclick="goHome()">INICIO</button>
+</div>
+
+<section class="hero">
+<h1>PISTAS 2026</h1>
+</section>
+
+<div class="container">
+
+<div class="section-title">CIRCUITOS DESTACADOS</div>
+
+<div class="track-grid">
+
+<div class="card" onclick="presentTrack('monaco.jpg','GP Mónaco','Circuito urbano técnico y estrecho.')">
+<div class="card-inner">
+<div class="card-front">
+<img src="monaco.jpg">
+<h2>GP Los Santos</h2>
+</div>
+<div class="card-back">
+<p>Longitud: 3.3 km<br>Curvas: 19<br>Tipo: Urbano</p>
+</div>
+</div>
+</div>
+
+<div class="card" onclick="presentTrack('suzuka.jpg','GP Japón','Circuito rápido en forma de 8.')">
+<div class="card-inner">
+<div class="card-front">
+<img src="suzuka.jpg">
+<h2>GP Las Venturas</h2>
+</div>
+<div class="card-back">
+<p>Longitud: 6,7 km<br>Curvas: 13<br>Tipo: Urbano/Carretera</p>
+</div>
+</div>
+</div>
+
+<div class="card" onclick="presentTrack('silverstone.jpg','GP Gran Bretaña','Alta velocidad y curvas técnicas.')">
+<div class="card-inner">
+<div class="card-front">
+<img src="silverstone.jpg">
+<h2>GP San Fierro</h2>
+</div>
+<div class="card-back">
+<p>Longitud: 5.9 km<br>Curvas: 15<br>Tipo: Urbano/Carretera</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- PRESENTACION -->
+<div id="presentationScreen">
+<img id="presentationImg">
+<h1 id="presentationName"></h1>
+<p id="presentationDesc" style="margin-top:15px;color:#ccc;"></p>
+<button onclick="closePresentation()" style="margin-top:30px;padding:10px 20px;background:red;border:none;color:white;font-family:'Orbitron';cursor:pointer;">
+CERRAR
+</button>
+</div>
+
+<audio id="bgMusic" src="NFS.mp3" loop></audio>
+<button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
+SONIDO OFF
+</button>
+
+<script>
+
+function presentTrack(img,name,desc){
+document.getElementById("presentationImg").src=img
+document.getElementById("presentationName").textContent=name
+document.getElementById("presentationDesc").textContent=desc
+document.getElementById("presentationScreen").classList.add("active")
+}
+
+function closePresentation(){
+document.getElementById("presentationScreen").classList.remove("active")
+}
+
+function goHome(){
+document.getElementById("transition").classList.add("active")
+setTimeout(()=>{window.location.href="index.html"},600)
+}
+
+/* MUSICA */
+const music=document.getElementById("bgMusic")
+music.volume=0.5
+music.muted=true
+
+function toggleMusic(){
+if(music.muted){
+music.muted=false
+music.play().catch(()=>{})
+document.getElementById("musicBtn").textContent="SONIDO ON"
+}else{
+music.muted=true
+document.getElementById("musicBtn").textContent="SONIDO OFF"
+}
+}
+
+</script>
+
+</body>
+</html>
