@@ -69,6 +69,7 @@ justify-content:center;
 .main-menu{
 display:flex;
 gap:60px;
+align-items:flex-start;
 }
 
 /* TARJETAS */
@@ -112,6 +113,30 @@ box-shadow:0 40px 80px rgba(0,0,0,.9);
 .menu-card:hover img{
 transform:scale(1.15);
 }
+
+/* CONTENEDOR PILOTOS + BOTON */
+.pilotos-col{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:15px;
+}
+
+/* BOTON MUSICA */
+.music-btn{
+padding:10px 18px;
+border:none;
+border-radius:10px;
+background:rgba(0,0,0,.7);
+color:white;
+cursor:pointer;
+transition:.3s;
+backdrop-filter:blur(6px);
+}
+
+.music-btn:hover{
+background:rgba(255,0,0,.7);
+}
 </style>
 </head>
 
@@ -139,10 +164,18 @@ transform:scale(1.15);
 <div class="menu-title">CAMPEONATOS</div>
 </div>
 
-<!-- PILOTOS -->
+<!-- PILOTOS + BOTON MUSICA -->
+<div class="pilotos-col">
+
 <div class="menu-card" onclick="go('pilotos.html')">
 <img src="pilotos.png">
 <div class="menu-title">PILOTOS</div>
+</div>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+MUSICA OFF
+</button>
+
 </div>
 
 <!-- RESULTADOS -->
@@ -152,13 +185,40 @@ transform:scale(1.15);
 </div>
 
 </div>
-
 </section>
 
+<!-- AUDIO MUSICA -->
+<audio id="bgMusic" src="NFS.mp3" loop></audio>
+
 <script>
+
+/* NAVEGACION */
 function go(link){
 window.location.href = link
 }
+
+/* MUSICA */
+const music = document.getElementById("bgMusic")
+const btn = document.getElementById("musicBtn")
+
+music.volume = 0.5
+
+/* autoplay real (navegadores bloquean sonido automático) */
+document.addEventListener("click", ()=>{
+music.play()
+btn.textContent="MUSICA ON"
+},{ once:true })
+
+function toggleMusic(){
+if(music.paused){
+music.play()
+btn.textContent="MUSICA ON"
+}else{
+music.pause()
+btn.textContent="MUSICA OFF"
+}
+}
+
 </script>
 
 </body>
