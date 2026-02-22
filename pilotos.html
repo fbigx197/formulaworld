@@ -44,10 +44,34 @@ background:rgba(0,0,0,.75);
 backdrop-filter:blur(10px);
 display:flex;
 justify-content:space-between;
+align-items:center;
 z-index:1000;
 }
 
+.nav-left{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
 .logo{font-weight:800;letter-spacing:3px}
+
+.back-btn{
+padding:8px 18px;
+border-radius:8px;
+background:#00d0ff;
+color:black;
+text-decoration:none;
+font-size:12px;
+font-weight:600;
+letter-spacing:1px;
+transition:.3s;
+}
+
+.back-btn:hover{
+background:white;
+transform:translateY(-1px);
+}
 
 /* ================= HERO ================= */
 .hero{
@@ -226,7 +250,10 @@ border-radius:8px;
 <div class="overlay"></div>
 
 <div class="navbar">
-<div class="logo">FORMULA WORLD GX</div>
+    <div class="nav-left">
+        <div class="logo">FORMULA WORLD GX</div>
+        <a class="back-btn" href="index.html">INICIO</a>
+    </div>
 </div>
 
 <section class="hero">
