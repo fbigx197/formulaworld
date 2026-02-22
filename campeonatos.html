@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campeonatos | Formula World GX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Orbitron', sans-serif;
+    background:#05070a;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:18px 50px;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+    font-weight:800;
+    letter-spacing:3px;
+}
+
+.nav-links a{
+    margin-left:30px;
+    text-decoration:none;
+    color:white;
+    font-size:14px;
+    opacity:.8;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    opacity:1;
+}
+
+/* HERO */
+.hero{
+    height:45vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding-top:80px;
+}
+
+.hero h1{
+    font-size:52px;
+    letter-spacing:6px;
+    margin-bottom:10px;
+    position:relative;
+    overflow:hidden;
+}
+
+/* luz que recorre titulo */
+.hero h1::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:60%;
+    height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.9), transparent);
+    animation:shine 4s infinite;
+}
+
+@keyframes shine{
+    0%{ left:-120%; }
+    100%{ left:130%; }
+}
+
+.hero p{
+    opacity:.6;
+    font-size:14px;
+}
+
+/* GRID */
+.grid{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:40px;
+    padding:40px 0 100px 0;
+}
+
+/* CARD */
+.card{
+    position:relative;
+    height:340px;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    transform-style:preserve-3d;
+    transition:transform .5s ease, box-shadow .5s ease;
+}
+
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .7s ease;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,.8), transparent 60%);
+}
+
+.card-title{
+    position:absolute;
+    bottom:25px;
+    left:25px;
+    font-size:24px;
+    font-weight:600;
+    letter-spacing:2px;
+}
+
+/* hover 3D premium */
+.card:hover{
+    transform:scale(1.08) rotateX(6deg) rotateY(-6deg);
+    box-shadow:0 40px 80px rgba(0,0,0,0.9);
+}
+
+.card:hover img{
+    transform:scale(1.15);
+}
+
+/* animacion apertura */
+.card.opening{
+    animation:openCard .6s forwards ease;
+    z-index:999;
+}
+
+@keyframes openCard{
+    0%{ transform:scale(1); }
+    60%{ transform:scale(1.25); }
+    100%{ transform:scale(1.15); }
+}
+
+/* efecto brillo al pasar */
+.card::after{
+    content:"";
+    position:absolute;
+    top:-120%;
+    left:-120%;
+    width:60%;
+    height:200%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+    transform:rotate(25deg);
+    transition:.6s;
+}
+
+.card:hover::after{
+    top:120%;
+    left:120%;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">WORLD GX</div>
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="#">Pilotos</a>
+        <a href="#">Resultados</a>
+    </div>
+</div>
+
+<section class="hero">
+    <h1>CAMPEONATOS</h1>
+    <p>Selecciona una categoría para explorar</p>
+</section>
+
+<section class="grid">
+
+<div class="card" onclick="openCard(this,'formula1.html')">
+    <img src="F1.png">
+    <div class="card-title">Formula 1</div>
+</div>
+
+<div class="card" onclick="openCard(this,'formula2.html')">
+    <img src="F2.png">
+    <div class="card-title">Formula 2</div>
+</div>
+
+<div class="card" onclick="openCard(this,'formula3.html')">
+    <img src="F3.png">
+    <div class="card-title">Formula 3</div>
+</div>
+
+<div class="card" onclick="openCard(this,'formula5.html')">
+    <img src="F5.png">
+    <div class="card-title">Formula 5</div>
+</div>
+
+</section>
+
+<script>
+function openCard(card, link){
+    card.classList.add('opening');
+    setTimeout(()=>{
+        window.location.href = link;
+    }, 500);
+}
+
+/* efecto inclinacion segun mouse */
+document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+
+        card.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', ()=>{
+        card.style.transform = '';
+    });
+});
+</script>
+
+</body>
+</html>
