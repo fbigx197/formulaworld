@@ -137,6 +137,22 @@ backdrop-filter:blur(6px);
 .music-btn:hover{
 background:rgba(255,0,0,.7);
 }
+
+/* TEXTO FIA */
+.fia-info{
+margin-top:10px;
+text-align:center;
+font-size:12px;
+color:rgba(255,255,255,.7);
+line-height:1.6;
+letter-spacing:1px;
+}
+.fia-info span{
+display:block;
+font-weight:600;
+color:white;
+margin-top:4px;
+}
 </style>
 </head>
 
@@ -176,9 +192,18 @@ background:rgba(255,0,0,.7);
 MUSICA OFF
 </button>
 
+<!-- INFO FIA -->
+<div class="fia-info">
+Comisarios FIA  
+<span>Ethan Collins - Gennaro Foressi</span>
+
+SubComisario FIA  
+<span>César Bustos</span>
 </div>
 
-<!-- RESULTADOS -->
+</div>
+
+<!-- PISTAS -->
 <div class="menu-card" onclick="go('pistas.html')">
 <img src="pistas.png">
 <div class="menu-title"></div>
@@ -203,7 +228,6 @@ const btn = document.getElementById("musicBtn")
 
 music.volume = 0.5
 
-/* autoplay real (navegadores bloquean sonido automático) */
 document.addEventListener("click", ()=>{
 music.play()
 btn.textContent="MUSICA ON"
