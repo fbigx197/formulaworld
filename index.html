@@ -5,7 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formula World GX</title>
 
+<!-- FUENTE -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<!-- ICONO WEB -->
+<link rel="icon" type="image/png" href="fworld.png">
+<link rel="apple-touch-icon" href="fworld.png">
+
+<!-- PREVIEW DISCORD / REDES -->
+<meta property="og:title" content="Formula World GX">
+<meta property="og:description" content="Formula World GX, el sitio de los corredores">
+<meta property="og:image" content="fworld.png">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#000000">
 
 <style>
 *{
@@ -97,14 +109,6 @@ inset:0;
 background:linear-gradient(to top,rgba(0,0,0,.85),transparent 60%);
 }
 
-.menu-title{
-position:absolute;
-bottom:25px;
-left:25px;
-font-size:24px;
-letter-spacing:2px;
-}
-
 .menu-card:hover{
 transform:scale(1.08);
 box-shadow:0 40px 80px rgba(0,0,0,.9);
@@ -114,7 +118,7 @@ box-shadow:0 40px 80px rgba(0,0,0,.9);
 transform:scale(1.15);
 }
 
-/* CONTENEDOR PILOTOS + BOTON */
+/* COLUMNA CENTRAL */
 .pilotos-col{
 display:flex;
 flex-direction:column;
@@ -132,6 +136,7 @@ color:white;
 cursor:pointer;
 transition:.3s;
 backdrop-filter:blur(6px);
+letter-spacing:1px;
 }
 
 .music-btn:hover{
@@ -147,6 +152,7 @@ color:rgba(255,255,255,.7);
 line-height:1.6;
 letter-spacing:1px;
 }
+
 .fia-info span{
 display:block;
 font-weight:600;
@@ -158,10 +164,11 @@ margin-top:4px;
 
 <body>
 
-<!-- VIDEO -->
+<!-- VIDEO FONDO -->
 <video class="bg-video" autoplay muted loop playsinline>
 <source src="f1-video.mp4" type="video/mp4">
 </video>
+
 <div class="overlay"></div>
 
 <!-- NAVBAR -->
@@ -169,7 +176,7 @@ margin-top:4px;
 <div class="logo">FORMULA WORLD GX</div>
 </nav>
 
-<!-- MENU PRINCIPAL -->
+<!-- MENU -->
 <section class="hero">
 
 <div class="main-menu">
@@ -177,22 +184,19 @@ margin-top:4px;
 <!-- CAMPEONATOS -->
 <div class="menu-card" onclick="go('campeonatos.html')">
 <img src="campeonatos.png">
-<div class="menu-title"></div>
 </div>
 
-<!-- PILOTOS + BOTON MUSICA -->
+<!-- PILOTOS -->
 <div class="pilotos-col">
 
 <div class="menu-card" onclick="go('pilotos.html')">
 <img src="pilotos.png">
-<div class="menu-title"></div>
 </div>
 
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
 MUSICA OFF
 </button>
 
-<!-- INFO FIA -->
 <div class="fia-info">
 Comisarios FIA  
 <span>Ethan Collins - Gennaro Foressi</span>
@@ -209,40 +213,39 @@ Director de Carreras
 <!-- PISTAS -->
 <div class="menu-card" onclick="go('pistas.html')">
 <img src="pistas.png">
-<div class="menu-title"></div>
 </div>
 
 </div>
 </section>
 
-<!-- AUDIO MUSICA -->
+<!-- AUDIO -->
 <audio id="bgMusic" src="NFS.mp3" loop></audio>
 
 <script>
 
 /* NAVEGACION */
 function go(link){
-window.location.href = link
+window.location.href = link;
 }
 
 /* MUSICA */
-const music = document.getElementById("bgMusic")
-const btn = document.getElementById("musicBtn")
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
 
-music.volume = 0.5
+music.volume = 0.5;
 
 document.addEventListener("click", ()=>{
-music.play()
-btn.textContent="MUSICA ON"
-},{ once:true })
+music.play();
+btn.textContent="MUSICA ON";
+},{ once:true });
 
 function toggleMusic(){
 if(music.paused){
-music.play()
-btn.textContent="MUSICA ON"
+music.play();
+btn.textContent="MUSICA ON";
 }else{
-music.pause()
-btn.textContent="MUSICA OFF"
+music.pause();
+btn.textContent="MUSICA OFF";
 }
 }
 
