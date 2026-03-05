@@ -3,10 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Formula World GX</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="formulalogo.png">
+
+<meta property="og:title" content="Formula World GX">
+<meta property="og:description" content="Formula World GX, el sitio de los corredores">
+<meta property="og:image" content="formulalogo.png">
+<meta name="theme-color" content="#000000">
 
 <style>
 
@@ -18,167 +23,256 @@ font-family:'Orbitron',sans-serif;
 }
 
 body{
-background:#000;
+background:black;
 color:white;
 overflow:hidden;
 }
 
-/* VIDEO INTRO */
+/* VIDEO */
 
-#intro{
+.bg-video{
 position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-z-index:1;
-}
-
-#intro video{
+inset:0;
 width:100%;
 height:100%;
 object-fit:cover;
+z-index:-3;
 }
 
-/* OSCURECER AL INICIAR */
+/* OVERLAY OSCURO */
 
-#intro.dark video{
-filter:brightness(35%);
+.overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.9));
+opacity:0;
 transition:1s;
+z-index:-2;
+}
+
+.overlay.active{
+opacity:1;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:18px;
+display:flex;
+justify-content:center;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(6px);
+}
+
+.logo{
+font-size:22px;
+letter-spacing:4px;
+font-weight:800;
+}
+
+/* BOTONES */
+
+.start-ui{
+position:fixed;
+bottom:30px;
+left:30px;
+right:30px;
+display:flex;
+justify-content:space-between;
+z-index:10;
+}
+
+.music-btn{
+padding:12px 20px;
+border-radius:12px;
+border:none;
+background:rgba(0,0,0,.6);
+color:white;
+cursor:pointer;
+}
+
+.music-btn:hover{
+background:#ff0000;
 }
 
 /* BOTON INICIAR */
 
-#startBtn{
-
-position:absolute;
-bottom:40px;
-right:40px;
-
-padding:14px 30px;
-
+.start-btn{
+padding:16px 35px;
+border-radius:14px;
+border:none;
 background:#ff0000;
 color:white;
-border:none;
-
-font-size:18px;
-font-weight:800;
-
+letter-spacing:2px;
+font-weight:700;
 cursor:pointer;
-
-border-radius:6px;
-
-animation:blink 1s infinite;
-
-z-index:3;
+animation:pulse 1.4s infinite;
 }
 
-@keyframes blink{
-
-0%{box-shadow:0 0 5px red;}
-50%{box-shadow:0 0 25px red;}
-100%{box-shadow:0 0 5px red;}
-
+@keyframes pulse{
+0%{box-shadow:0 0 5px #ff0000;}
+50%{box-shadow:0 0 25px #ff0000,0 0 60px rgba(255,0,0,.8);}
+100%{box-shadow:0 0 5px #ff0000;}
 }
 
-/* BOTON MUSICA */
+/* SEMAFORO F1 */
 
-#musicBtn{
-
-position:absolute;
-bottom:40px;
-left:40px;
-
-padding:10px 20px;
-
-background:black;
-color:white;
-
-border:1px solid white;
-
-cursor:pointer;
-
-z-index:3;
-}
-
-/* EQUIPOS FIA */
-
-#teams{
-
-position:absolute;
-bottom:10px;
-width:100%;
-text-align:center;
-
-font-size:14px;
-opacity:0.8;
-
-z-index:3;
-}
-
-.team{
-display:block;
-animation:drop 1.5s ease forwards;
+.start-lights{
+position:fixed;
+top:45%;
+left:50%;
+transform:translate(-50%,-50%);
+display:flex;
+gap:15px;
 opacity:0;
 }
 
-.team:nth-child(1){animation-delay:0.3s}
-.team:nth-child(2){animation-delay:0.6s}
-.team:nth-child(3){animation-delay:0.9s}
-.team:nth-child(4){animation-delay:1.2s}
-.team:nth-child(5){animation-delay:1.5s}
-
-@keyframes drop{
-
-0%{
-transform:translateY(-50px);
-opacity:0;
+.light{
+width:40px;
+height:40px;
+border-radius:50%;
+background:#220000;
+border:2px solid #550000;
+transition:.3s;
 }
 
-100%{
-transform:translateY(0);
-opacity:1;
+.light.on{
+background:red;
+box-shadow:0 0 15px red,0 0 40px red;
 }
 
+.light.green{
+background:#00ff6a;
+box-shadow:0 0 15px #00ff6a,0 0 40px #00ff6a;
+border-color:#00ff6a;
 }
 
 /* TARJETAS */
 
-#cards{
-
+.menu-container{
 position:absolute;
 top:50%;
 left:50%;
-
 transform:translate(-50%,-50%);
-
 display:flex;
-gap:30px;
+gap:35px;
 
 opacity:0;
+pointer-events:none;
 transition:1s;
 
-z-index:4;
+/* SCROLL HORIZONTAL */
+overflow-x:auto;
+overflow-y:hidden;
+width:90vw;
+padding:20px;
 
+scroll-snap-type:x mandatory;
+-webkit-overflow-scrolling:touch;
 }
 
-.card{
+.menu-container.active{
+opacity:1;
+pointer-events:auto;
+}
 
-width:200px;
-height:300px;
+/* ocultar barra scroll */
 
-background:#111;
+.menu-container::-webkit-scrollbar{
+display:none;
+}
 
-border:1px solid red;
+/* TARJETAS */
 
-border-radius:10px;
+.menu-card{
+flex:0 0 auto;
+width:180px;
+height:230px;
+border-radius:16px;
+overflow:hidden;
+cursor:pointer;
+transition:.4s;
 
-display:flex;
-align-items:center;
-justify-content:center;
+scroll-snap-align:center;
+}
 
-font-size:20px;
+.menu-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.5s;
+}
 
+.menu-card:hover{
+transform:scale(1.08);
+box-shadow:0 0 15px red,0 0 40px rgba(255,0,0,.8);
+}
+
+.menu-card:hover img{
+transform:scale(1.1);
+}
+
+/* TEAM FIA */
+
+.fia-team{
+position:fixed;
+bottom:120px;
+left:50%;
+transform:translateX(-50%);
+text-align:center;
+font-size:15px;
+letter-spacing:3px;
+}
+
+.fia-team div{
+
+margin:8px 0;
+opacity:0;
+transform:translateY(-40px);
+
+background:linear-gradient(90deg,#ffffff,#ff3b3b,#ffffff);
+-webkit-background-clip:text;
+color:transparent;
+
+font-weight:600;
+
+text-shadow:
+0 0 6px rgba(255,0,0,.6),
+0 0 20px rgba(255,0,0,.4);
+
+animation:drop .7s forwards;
+}
+
+.fia-team div:nth-child(1){animation-delay:.4s;}
+.fia-team div:nth-child(2){animation-delay:.8s;}
+.fia-team div:nth-child(3){animation-delay:1.2s;}
+
+@keyframes drop{
+0%{opacity:0;transform:translateY(-40px);}
+100%{opacity:1;transform:translateY(0);}
+}
+
+/* BOTON FIA */
+
+.fia-button{
+position:fixed;
+bottom:90px;
+left:50%;
+transform:translateX(-50%);
+padding:14px 32px;
+border-radius:14px;
+background:rgba(0,0,0,.8);
+border:1px solid rgba(255,0,0,.6);
+letter-spacing:2px;
+cursor:pointer;
+display:none;
+}
+
+.fia-button:hover{
+box-shadow:0 0 10px red,0 0 30px rgba(255,0,0,.8);
 }
 
 </style>
@@ -186,86 +280,155 @@ font-size:20px;
 
 <body>
 
-<!-- INTRO VIDEO -->
-
-<div id="intro">
-
-<video autoplay muted loop>
-<source src="intro.mp4" type="video/mp4">
+<video class="bg-video" autoplay muted loop playsinline>
+<source src="fia.mp4" type="video/mp4">
 </video>
 
-<button id="musicBtn">MUSICA OFF</button>
+<div class="overlay" id="overlay"></div>
 
-<button id="startBtn">INICIAR</button>
+<nav class="navbar">
+<div class="logo">FORMULA WORLD GX</div>
+</nav>
 
-<div id="teams">
+<!-- SEMAFORO -->
 
-<span class="team">Mercedes AMG Petronas</span>
-<span class="team">Red Bull Racing</span>
-<span class="team">Ferrari</span>
-<span class="team">McLaren</span>
-<span class="team">Aston Martin</span>
-<span class="team">Alpine</span>
-<span class="team">Williams</span>
-<span class="team">Kick Sauber</span>
-<span class="team">RB Visa Cash App</span>
-<span class="team">Haas F1 Team</span>
-
+<div class="start-lights" id="lights">
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
 </div>
+
+<!-- BOTONES -->
+
+<div class="start-ui">
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+MUSICA OFF
+</button>
+
+<button class="start-btn" onclick="startSequence()">
+INICIAR
+</button>
 
 </div>
 
 <!-- TARJETAS -->
 
-<div id="cards">
+<div class="menu-container" id="menu">
 
-<div class="card">PILOTO 1</div>
-<div class="card">PILOTO 2</div>
-<div class="card">PILOTO 3</div>
+<div class="menu-card" onclick="go('campeonatos.html')">
+<img src="campeonatos.png">
+</div>
+
+<div class="menu-card" onclick="go('pilotos.html')">
+<img src="pilotos.png">
+</div>
+
+<div class="menu-card" onclick="go('pistas.html')">
+<img src="pistas.png">
+</div>
+
+<div class="menu-card" onclick="go('escuderias.html')">
+<img src="escuderias.png">
+</div>
 
 </div>
 
-<audio id="music" loop>
-<source src="music.mp3" type="audio/mp3">
-</audio>
+<!-- EQUIPO FIA -->
+
+<div class="fia-team" id="fiaTeam">
+<div>Comisario FIA — Gennaro Foressi</div>
+<div>Comisario FIA — Ethan Collins</div>
+<div>SubComisario FIA — César Bustos</div>
+</div>
+
+<div class="fia-button" id="fiaBtn" onclick="go('fia.html')">
+EQUIPO FIA
+</div>
+
+<audio id="bgMusic" src="f1mp3.mp3" loop></audio>
 
 <script>
 
-const startBtn=document.getElementById("startBtn")
-const intro=document.getElementById("intro")
-const cards=document.getElementById("cards")
-const music=document.getElementById("music")
-const musicBtn=document.getElementById("musicBtn")
+const music=document.getElementById("bgMusic");
+const btn=document.getElementById("musicBtn");
+const menu=document.getElementById("menu");
+const team=document.getElementById("fiaTeam");
+const fiaBtn=document.getElementById("fiaBtn");
+const lights=document.getElementById("lights");
+const overlay=document.getElementById("overlay");
 
-let musicOn=false
+music.volume=0.5;
 
-musicBtn.onclick=()=>{
+document.addEventListener("click",()=>{
+music.play();
+btn.textContent="MUSICA ON";
+},{once:true});
 
-if(musicOn){
+function toggleMusic(){
 
-music.pause()
-musicBtn.innerText="MUSICA OFF"
-
+if(music.paused){
+music.play();
+btn.textContent="MUSICA ON";
 }else{
-
-music.play()
-musicBtn.innerText="MUSICA ON"
+music.pause();
+btn.textContent="MUSICA OFF";
+}
 
 }
 
-musicOn=!musicOn
+/* SECUENCIA F1 */
+
+function startSequence(){
+
+document.querySelector(".start-btn").style.display="none";
+lights.style.opacity="1";
+
+const bulbs=document.querySelectorAll(".light");
+
+bulbs.forEach((light,i)=>{
+
+setTimeout(()=>{
+light.classList.add("on");
+},i*700);
+
+});
+
+setTimeout(()=>{
+
+bulbs.forEach(light=>{
+light.classList.remove("on");
+light.classList.add("green");
+});
+
+},3800);
+
+setTimeout(()=>{
+
+lights.style.opacity="0";
+
+overlay.classList.add("active");
+
+menu.classList.add("active");
+
+team.style.display="none";
+
+fiaBtn.style.display="block";
+
+},4800);
 
 }
 
-startBtn.onclick=()=>{
-
-intro.classList.add("dark")
-
-cards.style.opacity="1"
-
-startBtn.style.display="none"
-
+function go(link){
+window.location.href=link;
 }
+
+</script>
+
+</body>
+</html>
 
 </script>
 
