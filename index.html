@@ -6,7 +6,6 @@
 <title>Formula World GX</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-
 <link rel="icon" type="image/png" href="formulalogo.png">
 
 <meta property="og:title" content="Formula World GX">
@@ -62,7 +61,7 @@ justify-content:center;
 z-index:1000;
 }
 
-/* LOGO FUTURISTA */
+/* LOGO */
 
 .logo{
 font-weight:800;
@@ -138,8 +137,6 @@ inset:0;
 background:linear-gradient(to top,rgba(0,0,0,.85),transparent 60%);
 }
 
-/* HOVER ROJO F1 */
-
 .menu-card:hover{
 transform:scale(1.08);
 box-shadow:
@@ -159,7 +156,7 @@ margin-top:20px;
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:12px;
+gap:15px;
 text-align:center;
 }
 
@@ -181,22 +178,26 @@ letter-spacing:1px;
 background:rgba(255,0,0,.7);
 }
 
-/* TEXTO FIA */
+/* MINI TARJETA FIA */
 
-.fia-info{
-margin-top:5px;
-text-align:center;
-font-size:12px;
-color:rgba(255,255,255,.7);
-line-height:1.6;
-letter-spacing:1px;
+.fia-card{
+padding:14px 30px;
+border-radius:14px;
+background:rgba(0,0,0,.75);
+backdrop-filter:blur(8px);
+cursor:pointer;
+transition:.4s;
+letter-spacing:2px;
+font-weight:600;
+border:1px solid rgba(255,0,0,.4);
 }
 
-.fia-info span{
-display:block;
-font-weight:600;
-color:white;
-margin-top:4px;
+.fia-card:hover{
+transform:scale(1.05);
+box-shadow:
+0 0 10px #ff0000,
+0 0 30px rgba(255,0,0,.8);
+background:rgba(20,0,0,.85);
 }
 
 /* MOVIL */
@@ -207,8 +208,6 @@ margin-top:4px;
 align-items:flex-start;
 padding-top:120px;
 }
-
-/* SCROLL HORIZONTAL SUAVE */
 
 .main-menu{
 gap:30px;
@@ -273,15 +272,8 @@ scroll-snap-align:center;
 MUSICA OFF
 </button>
 
-<div class="fia-info">
-Comisarios FIA  
-<span>Ethan Collins - Gennaro Foressi</span>
-
-SubComisario FIA  
-<span>César Bustos</span>
-
-Director de Carreras  
-<span>Blake Laurent - Kenzie</span>
+<div class="fia-card" onclick="go('fia.html')">
+EQUIPO FIA
 </div>
 
 </div>
