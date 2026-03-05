@@ -8,7 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
 font-family:'Orbitron',sans-serif;
@@ -17,41 +22,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* INTRO */
-.intro{
-position:fixed;
-inset:0;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:42px;
-letter-spacing:8px;
-z-index:9999;
-animation:introAnim 4s forwards;
-}
-
-@keyframes introAnim{
-0%{opacity:0;transform:scale(1.2)}
-30%{opacity:1}
-80%{opacity:1}
-100%{opacity:0;visibility:hidden}
-}
-
-/* TRANSICION */
-.transition{
-position:fixed;
-inset:0;
-background:black;
-transform:scaleY(0);
-transform-origin:top;
-transition:.6s ease;
-z-index:9998;
-}
-
-.transition.active{transform:scaleY(1)}
-
-/* FONDO VIDEO */
+/* VIDEO FONDO */
 
 .bg-video{
 position:fixed;
@@ -81,8 +52,8 @@ backdrop-filter:blur(10px);
 display:flex;
 justify-content:space-between;
 align-items:center;
-z-index:1000;
 border-bottom:2px solid red;
+z-index:1000;
 }
 
 .logo{
@@ -91,13 +62,13 @@ letter-spacing:3px;
 }
 
 .btn{
-padding:10px 22px;
+padding:10px 20px;
+background:linear-gradient(45deg,#ff0000,#ff6a00);
 border:none;
 border-radius:8px;
+color:white;
 cursor:pointer;
 font-family:'Orbitron';
-background:linear-gradient(45deg,#ff0000,#ff6a00);
-color:white;
 }
 
 /* HERO */
@@ -107,15 +78,14 @@ height:40vh;
 display:flex;
 justify-content:center;
 align-items:center;
-text-align:center;
 }
 
 .hero h1{
 font-size:60px;
-letter-spacing:10px;
+letter-spacing:8px;
 }
 
-/* CONTAINER */
+/* CONTENEDOR */
 
 .container{
 width:90%;
@@ -124,7 +94,7 @@ padding-bottom:120px;
 }
 
 .section-title{
-margin:50px 0 20px;
+margin:50px 0 30px;
 font-size:26px;
 border-left:5px solid red;
 padding-left:15px;
@@ -134,71 +104,243 @@ padding-left:15px;
 
 .team-cards{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:30px;
 }
 
+/* CARD */
+
 .card{
+
+position:relative;
+height:260px;
+
 background:rgba(255,255,255,.05);
-border-radius:12px;
-padding:20px;
+border-radius:14px;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
 cursor:pointer;
-transition:.3s;
+
+transition:.35s;
+
+border:1px solid rgba(255,255,255,.05);
+
+overflow:hidden;
 }
 
 .card:hover{
-transform:translateY(-5px);
-background:rgba(255,255,255,.1);
+
+transform:translateY(-8px) scale(1.03);
+
+background:rgba(255,255,255,.08);
+
+box-shadow:0 0 25px rgba(255,0,0,.35);
+
+}
+
+/* brillo animado */
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+top:-50%;
+left:-50%;
+
+width:200%;
+height:200%;
+
+background:linear-gradient(120deg,transparent,rgba(255,0,0,.4),transparent);
+
+transform:rotate(25deg);
+
+opacity:0;
+
+transition:.5s;
+
+}
+
+.card:hover::before{
+
+opacity:1;
+
+animation:shine 1.4s linear;
+
+}
+
+@keyframes shine{
+0%{transform:translateX(-200%) rotate(25deg)}
+100%{transform:translateX(200%) rotate(25deg)}
 }
 
 .card img{
-width:80px;
-height:80px;
+width:85px;
+height:85px;
 border-radius:50%;
 object-fit:cover;
-margin-bottom:10px;
+margin-bottom:15px;
+border:2px solid red;
 }
 
-.team-menu{
-margin-top:15px;
-background:rgba(0,0,0,.6);
-padding:15px;
-border-radius:10px;
-display:none;
+.card h3{
+font-size:18px;
+text-align:center;
 }
 
-.team-menu.active{
-display:block;
+/* PANEL ESCUDERIA */
+
+.team-panel{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.95);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:9999;
+
+opacity:0;
+
+pointer-events:none;
+
+transition:.4s;
+
 }
 
-.team-menu h4{
+.team-panel.active{
+opacity:1;
+pointer-events:auto;
+}
+
+/* PANEL CONTENIDO */
+
+.panel-content{
+
+width:700px;
+
+max-width:90%;
+
+background:rgba(255,255,255,.05);
+
+border-radius:14px;
+
+padding:40px;
+
+text-align:center;
+
+border:1px solid rgba(255,255,255,.1);
+
+animation:panelAnim .4s ease;
+
+}
+
+@keyframes panelAnim{
+
+from{
+transform:scale(.8);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+.panel-content img{
+
+width:120px;
+height:120px;
+
+border-radius:50%;
+
+border:3px solid red;
+
+margin-bottom:20px;
+
+object-fit:cover;
+
+}
+
+.panel-content h2{
+margin-bottom:20px;
+}
+
+.panel-content h4{
 color:red;
-margin-top:10px;
+margin-top:20px;
+margin-bottom:8px;
+}
+
+.panel-content p{
 margin-bottom:5px;
 }
 
-/* SONIDO BTN */
+/* BOTON CERRAR */
+
+.close-btn{
+
+margin-top:30px;
+
+padding:10px 25px;
+
+background:red;
+
+border:none;
+
+color:white;
+
+font-family:'Orbitron';
+
+cursor:pointer;
+
+border-radius:8px;
+
+}
+
+/* BOTON MUSICA */
 
 .music-toggle{
+
 position:fixed;
+
 bottom:20px;
+
 left:20px;
+
 padding:12px 18px;
+
 border:none;
+
 border-radius:10px;
+
 background:rgba(0,0,0,.8);
+
 color:white;
+
 cursor:pointer;
+
 z-index:2000;
+
 }
 
 </style>
 </head>
 
 <body>
-
-<div class="intro">FORMULA WORLD GX</div>
-<div class="transition" id="transition"></div>
 
 <video class="bg-video" autoplay muted loop playsinline>
 <source src="f1-video.mp4" type="video/mp4">
@@ -208,7 +350,7 @@ z-index:2000;
 
 <div class="navbar">
 <div class="logo">FORMULA WORLD GX</div>
-<button class="btn" onclick="goHome()">INICIO</button>
+<button class="btn">INICIO</button>
 </div>
 
 <section class="hero">
@@ -223,8 +365,25 @@ z-index:2000;
 
 </div>
 
+<!-- PANEL ESCUDERIA -->
+
+<div class="team-panel" id="teamPanel">
+
+<div class="panel-content">
+
+<img id="panelLogo">
+
+<h2 id="panelName"></h2>
+
+<div id="panelInfo"></div>
+
+<button class="close-btn" onclick="closePanel()">CERRAR</button>
+
+</div>
+
+</div>
+
 <audio id="bgMusic" src="NFS.mp3" loop></audio>
-<audio id="whoosh" src="whoosh.mp3"></audio>
 
 <button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
 SONIDO OFF
@@ -232,7 +391,7 @@ SONIDO OFF
 
 <script>
 
-/* ===== ESCUDERIAS ===== */
+/* ESCUDERIAS */
 
 const escuderias=[
 
@@ -298,21 +457,6 @@ mecanicos:[
 "Kenji Sato",
 "Hiro Tanaka"
 ]
-},
-
-{
-nombre:"Alpine F1 Team",
-logo:"floyd.jpg",
-dueno:"Laurent Rossi",
-pilotos:[
-"Floyd Scofield",
-"Juan Olivero",
-"Roke Carvalho"
-],
-mecanicos:[
-"Pierre Blanc",
-"Lucas Moreau"
-]
 }
 
 ]
@@ -327,23 +471,11 @@ escuderias.forEach((team,i)=>{
 
 container.innerHTML+=`
 
-<div class="card" onclick="toggleMenu(${i})">
+<div class="card" onclick="openTeam(${i})">
 
 <img src="${team.logo}">
+
 <h3>${team.nombre}</h3>
-
-<div class="team-menu" id="menu-${i}">
-
-<h4>Dueño</h4>
-<p>${team.dueno}</p>
-
-<h4>Pilotos</h4>
-${team.pilotos.map(p=>`<p>${p}</p>`).join("")}
-
-<h4>Mecánicos</h4>
-${team.mecanicos.map(m=>`<p>${m}</p>`).join("")}
-
-</div>
 
 </div>
 
@@ -355,21 +487,42 @@ ${team.mecanicos.map(m=>`<p>${m}</p>`).join("")}
 
 renderTeams()
 
-function toggleMenu(id){
+function openTeam(id){
 
-const menu=document.getElementById("menu-"+id)
+const team=escuderias[id]
 
-document.querySelectorAll(".team-menu").forEach(m=>{
-if(m!==menu)m.classList.remove("active")
-})
+document.getElementById("panelLogo").src=team.logo
+document.getElementById("panelName").textContent=team.nombre
 
-menu.classList.toggle("active")
+let html=`
+
+<h4>Dueño</h4>
+<p>${team.dueno}</p>
+
+<h4>Pilotos</h4>
+${team.pilotos.map(p=>`<p>${p}</p>`).join("")}
+
+<h4>Mecánicos</h4>
+${team.mecanicos.map(m=>`<p>${m}</p>`).join("")}
+
+`
+
+document.getElementById("panelInfo").innerHTML=html
+
+document.getElementById("teamPanel").classList.add("active")
+
+}
+
+function closePanel(){
+
+document.getElementById("teamPanel").classList.remove("active")
 
 }
 
 /* MUSICA */
 
 const music=document.getElementById("bgMusic")
+
 music.volume=0.5
 music.muted=true
 
@@ -378,30 +531,17 @@ function toggleMusic(){
 if(music.muted){
 
 music.muted=false
-music.play().catch(()=>{})
+music.play()
 
 document.getElementById("musicBtn").textContent="SONIDO ON"
 
 }else{
 
 music.muted=true
+
 document.getElementById("musicBtn").textContent="SONIDO OFF"
 
 }
-
-}
-
-function goHome(){
-
-document.getElementById("whoosh").play().catch(()=>{})
-
-document.getElementById("transition").classList.add("active")
-
-setTimeout(()=>{
-
-window.location.href="index.html"
-
-},600)
 
 }
 
