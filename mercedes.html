@@ -3,41 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Mercedes Petronas</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-body{margin:0;font-family:'Orbitron',sans-serif;background:black;color:white;padding:40px;text-align:center;}
-.logo{width:150px;border-radius:50%;border:3px solid red;margin-bottom:30px;}
-.section{margin-top:30px;}
-.back-btn{margin-top:50px;display:inline-block;padding:12px 25px;background:red;border-radius:8px;color:white;text-decoration:none;}
+body{
+    margin:0;
+    background:#0a0a0a;
+    font-family:'Orbitron', sans-serif;
+    color:white;
+}
+
+/* ===== HEADER ===== */
+
+.header{
+    position:relative;
+    height:300px;
+    background:url("banner-mercedes.jpg") center/cover no-repeat;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.header::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+}
+
+.header h1{
+    position:relative;
+    font-size:40px;
+    letter-spacing:3px;
+}
+
+/* ===== CONTENIDO ===== */
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+/* LOGO */
+
+.team-logo{
+    display:block;
+    margin:-80px auto 40px auto;
+    width:160px;
+    border-radius:50%;
+    border:4px solid #00d2be;
+    background:black;
+}
+
+/* SECCIONES */
+
+.section-title{
+    text-align:center;
+    font-size:26px;
+    margin-bottom:30px;
+    color:#00d2be;
+}
+
+/* TARJETAS */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:#111;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    transition:0.3s;
+    border:1px solid #222;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 20px #00d2be;
+}
+
+.card img{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:50%;
+    margin-bottom:15px;
+    border:3px solid #00d2be;
+}
+
+.card h3{
+    margin:10px 0 5px 0;
+}
+
+.card p{
+    font-size:14px;
+    color:#aaa;
+}
+
+/* BOTON VOLVER */
+
+.back-btn{
+    position:fixed;
+    bottom:30px;
+    left:30px;
+    background:#00d2be;
+    color:black;
+    padding:12px 20px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:white;
+}
 </style>
 </head>
+
 <body>
 
-<h1>Mercedes Petronas</h1>
-<img src="luther.jpg" class="logo">
-
-<div class="section">
-<h3>Dueño</h3>
-<p>Toto Wolff</p>
+<div class="header">
+    <h1>Mercedes Petronas</h1>
 </div>
 
-<div class="section">
-<h3>Pilotos</h3>
-<p>Luther Schdler</p>
-<p>Alessandro Lora</p>
-<p>Anthony DeSciglio</p>
-<p>Nicolas Simeone</p>
+<div class="container">
+
+<img src="logo-mercedes.png" class="team-logo">
+
+<!-- DUEÑO -->
+<div class="section-title">Dueño</div>
+<div class="card-grid">
+    <div class="card">
+        <img src="dueno.jpg">
+        <h3>Toto Wolff</h3>
+        <p>Director Ejecutivo</p>
+    </div>
 </div>
 
-<div class="section">
-<h3>Mecánicos</h3>
-<p>James Carter</p>
-<p>Leo Martins</p>
-<p>Oliver Nash</p>
+<!-- PILOTOS -->
+<div class="section-title">Pilotos</div>
+<div class="card-grid">
+    <div class="card">
+        <img src="piloto1.jpg">
+        <h3>Luther Scholer</h3>
+        <p>Piloto Oficial</p>
+    </div>
+
+    <div class="card">
+        <img src="piloto2.jpg">
+        <h3>Alessandro Lora</h3>
+        <p>Piloto Oficial</p>
+    </div>
+
+    <div class="card">
+        <img src="piloto3.jpg">
+        <h3>Anthony DeSciglio</h3>
+        <p>Piloto Oficial</p>
+    </div>
 </div>
 
-<a href="escuderias.html" class="back-btn">⬅ REGRESAR</a>
+<!-- MECANICOS -->
+<div class="section-title">Mecánicos</div>
+<div class="card-grid">
+    <div class="card">
+        <img src="mecanico1.jpg">
+        <h3>Nombre Mecánico</h3>
+        <p>Ingeniero Principal</p>
+    </div>
+
+    <div class="card">
+        <img src="mecanico2.jpg">
+        <h3>Nombre Mecánico</h3>
+        <p>Telemetría</p>
+    </div>
+</div>
+
+</div>
+
+<a href="escuderias.html" class="back-btn">⬅ Volver</a>
 
 </body>
 </html>
