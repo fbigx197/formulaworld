@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formula World GX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:'Orbitron',sans-serif;
+background:black;
+color:white;
+overflow-x:hidden;
+}
+
+/* INTRO */
+.intro{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:42px;
+letter-spacing:8px;
+z-index:9999;
+animation:introAnim 4s forwards;
+}
+
+@keyframes introAnim{
+0%{opacity:0;transform:scale(1.2)}
+30%{opacity:1}
+80%{opacity:1}
+100%{opacity:0;visibility:hidden}
+}
+
+/* TRANSICION */
+.transition{
+position:fixed;
+inset:0;
+background:black;
+transform:scaleY(0);
+transform-origin:top;
+transition:.6s ease;
+z-index:9998;
+}
+
+.transition.active{transform:scaleY(1)}
+
+/* FONDO VIDEO */
+
+.bg-video{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-3;
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.95));
+z-index:-2;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:18px 50px;
+background:rgba(0,0,0,.85);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:1000;
+border-bottom:2px solid red;
+}
+
+.logo{
+font-weight:800;
+letter-spacing:3px;
+}
+
+.btn{
+padding:10px 22px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-family:'Orbitron';
+background:linear-gradient(45deg,#ff0000,#ff6a00);
+color:white;
+}
+
+/* HERO */
+
+.hero{
+height:40vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:60px;
+letter-spacing:10px;
+}
+
+/* CONTAINER */
+
+.container{
+width:90%;
+margin:auto;
+padding-bottom:120px;
+}
+
+.section-title{
+margin:50px 0 20px;
+font-size:26px;
+border-left:5px solid red;
+padding-left:15px;
+}
+
+/* TARJETAS ESCUDERIAS */
+
+.team-cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border-radius:12px;
+padding:20px;
+cursor:pointer;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+background:rgba(255,255,255,.1);
+}
+
+.card img{
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:10px;
+}
+
+.team-menu{
+margin-top:15px;
+background:rgba(0,0,0,.6);
+padding:15px;
+border-radius:10px;
+display:none;
+}
+
+.team-menu.active{
+display:block;
+}
+
+.team-menu h4{
+color:red;
+margin-top:10px;
+margin-bottom:5px;
+}
+
+/* SONIDO BTN */
+
+.music-toggle{
+position:fixed;
+bottom:20px;
+left:20px;
+padding:12px 18px;
+border:none;
+border-radius:10px;
+background:rgba(0,0,0,.8);
+color:white;
+cursor:pointer;
+z-index:2000;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="intro">FORMULA WORLD GX</div>
+<div class="transition" id="transition"></div>
+
+<video class="bg-video" autoplay muted loop playsinline>
+<source src="f1-video.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div class="navbar">
+<div class="logo">FORMULA WORLD GX</div>
+<button class="btn" onclick="goHome()">INICIO</button>
+</div>
+
+<section class="hero">
+<h1>ESCUDERÍAS 2026</h1>
+</section>
+
+<div class="container">
+
+<div class="section-title">PADDOCK</div>
+
+<div class="team-cards" id="teamCards"></div>
+
+</div>
+
+<audio id="bgMusic" src="NFS.mp3" loop></audio>
+<audio id="whoosh" src="whoosh.mp3"></audio>
+
+<button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
+SONIDO OFF
+</button>
+
+<script>
+
+/* ===== ESCUDERIAS ===== */
+
+const escuderias=[
+
+{
+nombre:"Mercedes Petronas",
+logo:"luther.jpg",
+dueno:"Toto Wolff",
+pilotos:[
+"Luther Schdler",
+"Alessandro Lora",
+"Anthony DeSciglio",
+"Nicolas Simeone"
+],
+mecanicos:[
+"James Carter",
+"Leo Martins",
+"Oliver Nash"
+]
+},
+
+{
+nombre:"Scuderia Valhalla",
+logo:"mernius.jpg",
+dueno:"Erik Lindstrom",
+pilotos:[
+"Leon Lindstrom",
+"Kaarl Lindstrom",
+"Nathan Brooks"
+],
+mecanicos:[
+"Victor Kane",
+"Adam Schultz"
+]
+},
+
+{
+nombre:"Blackwell Racing Bulls",
+logo:"Dave.jpg",
+dueno:"Luke Blackwell Sr.",
+pilotos:[
+"Dave Blackwell",
+"Luke Blackwell",
+"Gretzky Sergeev",
+"Arkady Reznikov"
+],
+mecanicos:[
+"Marco Vidal",
+"Shane Cooper"
+]
+},
+
+{
+nombre:"Skyline Racing",
+logo:"luko.jpg",
+dueno:"Takashi Yamato",
+pilotos:[
+"Luko Magno",
+"Guillermo Zambada",
+"Lorenzo Abruzzi",
+"Yepez"
+],
+mecanicos:[
+"Kenji Sato",
+"Hiro Tanaka"
+]
+},
+
+{
+nombre:"Alpine F1 Team",
+logo:"floyd.jpg",
+dueno:"Laurent Rossi",
+pilotos:[
+"Floyd Scofield",
+"Juan Olivero",
+"Roke Carvalho"
+],
+mecanicos:[
+"Pierre Blanc",
+"Lucas Moreau"
+]
+}
+
+]
+
+const container=document.getElementById("teamCards")
+
+function renderTeams(){
+
+container.innerHTML=""
+
+escuderias.forEach((team,i)=>{
+
+container.innerHTML+=`
+
+<div class="card" onclick="toggleMenu(${i})">
+
+<img src="${team.logo}">
+<h3>${team.nombre}</h3>
+
+<div class="team-menu" id="menu-${i}">
+
+<h4>Dueño</h4>
+<p>${team.dueno}</p>
+
+<h4>Pilotos</h4>
+${team.pilotos.map(p=>`<p>${p}</p>`).join("")}
+
+<h4>Mecánicos</h4>
+${team.mecanicos.map(m=>`<p>${m}</p>`).join("")}
+
+</div>
+
+</div>
+
+`
+
+})
+
+}
+
+renderTeams()
+
+function toggleMenu(id){
+
+const menu=document.getElementById("menu-"+id)
+
+document.querySelectorAll(".team-menu").forEach(m=>{
+if(m!==menu)m.classList.remove("active")
+})
+
+menu.classList.toggle("active")
+
+}
+
+/* MUSICA */
+
+const music=document.getElementById("bgMusic")
+music.volume=0.5
+music.muted=true
+
+function toggleMusic(){
+
+if(music.muted){
+
+music.muted=false
+music.play().catch(()=>{})
+
+document.getElementById("musicBtn").textContent="SONIDO ON"
+
+}else{
+
+music.muted=true
+document.getElementById("musicBtn").textContent="SONIDO OFF"
+
+}
+
+}
+
+function goHome(){
+
+document.getElementById("whoosh").play().catch(()=>{})
+
+document.getElementById("transition").classList.add("active")
+
+setTimeout(()=>{
+
+window.location.href="index.html"
+
+},600)
+
+}
+
+</script>
+
+</body>
+</html>
