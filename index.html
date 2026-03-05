@@ -30,7 +30,7 @@ overflow-x:auto;
 overflow-y:hidden;
 }
 
-/* VIDEO */
+/* VIDEO FONDO */
 
 .bg-video{
 position:fixed;
@@ -73,6 +73,7 @@ font-size:22px;
 .hero{
 height:100vh;
 display:flex;
+flex-direction:column;
 align-items:center;
 justify-content:center;
 padding-top:60px;
@@ -126,13 +127,15 @@ box-shadow:0 40px 80px rgba(0,0,0,.9);
 transform:scale(1.15);
 }
 
-/* COLUMNA CENTRAL */
+/* BLOQUE CENTRAL */
 
-.pilotos-col{
+.center-info{
+margin-top:20px;
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:15px;
+gap:12px;
+text-align:center;
 }
 
 /* BOTON MUSICA */
@@ -156,7 +159,7 @@ background:rgba(255,0,0,.7);
 /* TEXTO FIA */
 
 .fia-info{
-margin-top:10px;
+margin-top:5px;
 text-align:center;
 font-size:12px;
 color:rgba(255,255,255,.7);
@@ -197,15 +200,21 @@ height:280px;
 
 <body>
 
+<!-- VIDEO -->
+
 <video class="bg-video" autoplay muted loop playsinline>
 <source src="f1-video.mp4" type="video/mp4">
 </video>
 
 <div class="overlay"></div>
 
+<!-- NAVBAR -->
+
 <nav class="navbar">
 <div class="logo">FORMULA WORLD GX</div>
 </nav>
+
+<!-- HERO -->
 
 <section class="hero">
 
@@ -217,11 +226,25 @@ height:280px;
 </div>
 
 <!-- PILOTOS -->
-<div class="pilotos-col">
-
 <div class="menu-card" onclick="go('pilotos.html')">
 <img src="pilotos.png">
 </div>
+
+<!-- PISTAS -->
+<div class="menu-card" onclick="go('pistas.html')">
+<img src="pistas.png">
+</div>
+
+<!-- ESCUDERIAS -->
+<div class="menu-card" onclick="go('escuderias.html')">
+<img src="escuderias.png">
+</div>
+
+</div>
+
+<!-- BLOQUE CENTRAL -->
+
+<div class="center-info">
 
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
 MUSICA OFF
@@ -240,18 +263,9 @@ Director de Carreras
 
 </div>
 
-<!-- PISTAS -->
-<div class="menu-card" onclick="go('pistas.html')">
-<img src="pistas.png">
-</div>
-
-<!-- ESCUDERIAS -->
-<div class="menu-card" onclick="go('escuderias.html')">
-<img src="escuderias.png">
-</div>
-
-</div>
 </section>
+
+<!-- AUDIO -->
 
 <audio id="bgMusic" src="NFS.mp3" loop></audio>
 
