@@ -118,7 +118,7 @@ animation:pulse 1.4s infinite;
 100%{box-shadow:0 0 5px #ff0000;}
 }
 
-/* SEMAFORO F1 */
+/* SEMAFORO */
 
 .start-lights{
 position:fixed;
@@ -164,7 +164,6 @@ opacity:0;
 pointer-events:none;
 transition:1s;
 
-/* SCROLL HORIZONTAL */
 overflow-x:auto;
 overflow-y:hidden;
 width:90vw;
@@ -172,6 +171,7 @@ padding:20px;
 
 scroll-snap-type:x mandatory;
 -webkit-overflow-scrolling:touch;
+justify-content:flex-start;
 }
 
 .menu-container.active{
@@ -179,7 +179,7 @@ opacity:1;
 pointer-events:auto;
 }
 
-/* ocultar barra scroll */
+/* ocultar scrollbar */
 
 .menu-container::-webkit-scrollbar{
 display:none;
@@ -213,6 +213,17 @@ box-shadow:0 0 15px red,0 0 40px rgba(255,0,0,.8);
 
 .menu-card:hover img{
 transform:scale(1.1);
+}
+
+/* CENTRAR EN PC */
+
+@media (min-width:900px){
+
+.menu-container{
+justify-content:center;
+overflow-x:hidden;
+}
+
 }
 
 /* TEAM FIA */
@@ -290,8 +301,6 @@ box-shadow:0 0 10px red,0 0 30px rgba(255,0,0,.8);
 <div class="logo">FORMULA WORLD GX</div>
 </nav>
 
-<!-- SEMAFORO -->
-
 <div class="start-lights" id="lights">
 <div class="light"></div>
 <div class="light"></div>
@@ -299,8 +308,6 @@ box-shadow:0 0 10px red,0 0 30px rgba(255,0,0,.8);
 <div class="light"></div>
 <div class="light"></div>
 </div>
-
-<!-- BOTONES -->
 
 <div class="start-ui">
 
@@ -313,8 +320,6 @@ INICIAR
 </button>
 
 </div>
-
-<!-- TARJETAS -->
 
 <div class="menu-container" id="menu">
 
@@ -335,8 +340,6 @@ INICIAR
 </div>
 
 </div>
-
-<!-- EQUIPO FIA -->
 
 <div class="fia-team" id="fiaTeam">
 <div>Comisario FIA — Gennaro Foressi</div>
@@ -378,8 +381,6 @@ btn.textContent="MUSICA OFF";
 }
 
 }
-
-/* SECUENCIA F1 */
 
 function startSequence(){
 
@@ -424,11 +425,6 @@ fiaBtn.style.display="block";
 function go(link){
 window.location.href=link;
 }
-
-</script>
-
-</body>
-</html>
 
 </script>
 
