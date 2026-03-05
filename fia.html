@@ -17,34 +17,70 @@ font-family:'Orbitron',sans-serif;
 }
 
 body{
-background:#050505;
 color:white;
 min-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
+overflow-x:hidden;
+position:relative;
+}
+
+/* VIDEO FONDO MODO CINE */
+
+.bg-video{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-3;
+filter:brightness(.4) contrast(1.1);
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.95));
+z-index:-2;
+}
+
+/* LINEA ROJA SUPERIOR ANIMADA */
+
+.top-line{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:3px;
+background:linear-gradient(90deg,transparent,#ff0000,transparent);
+animation:scan 3s linear infinite;
+z-index:1000;
+}
+
+@keyframes scan{
+0%{transform:translateX(-100%)}
+100%{transform:translateX(100%)}
 }
 
 /* HEADER */
 
 .header{
 width:100%;
-padding:25px;
+padding:40px 20px 30px 20px;
 text-align:center;
-background:rgba(0,0,0,.9);
-border-bottom:1px solid rgba(255,0,0,.4);
+position:relative;
+z-index:1;
 }
 
 .header h1{
-letter-spacing:4px;
+letter-spacing:6px;
 font-weight:800;
+font-size:28px;
 }
 
 .header p{
-margin-top:8px;
+margin-top:10px;
 font-size:13px;
 color:rgba(255,255,255,.6);
-letter-spacing:2px;
+letter-spacing:3px;
 }
 
 /* CONTENEDOR */
@@ -52,17 +88,20 @@ letter-spacing:2px;
 .container{
 width:90%;
 max-width:1100px;
-margin-top:40px;
+margin:40px auto;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:30px;
+position:relative;
+z-index:1;
 }
 
-/* CARD */
+/* CARD GLASS */
 
 .card{
-background:rgba(15,15,15,.9);
-padding:25px;
+background:rgba(20,20,20,.7);
+backdrop-filter:blur(10px);
+padding:30px;
 border-radius:18px;
 border:1px solid rgba(255,0,0,.3);
 transition:.4s;
@@ -71,22 +110,22 @@ overflow:hidden;
 }
 
 .card:hover{
-transform:translateY(-6px);
+transform:translateY(-8px);
 box-shadow:
-0 0 10px #ff0000,
-0 0 40px rgba(255,0,0,.6);
+0 0 15px #ff0000,
+0 0 50px rgba(255,0,0,.6);
 }
 
 .card h2{
-font-size:16px;
-margin-bottom:15px;
-letter-spacing:2px;
+font-size:15px;
+margin-bottom:18px;
+letter-spacing:3px;
 color:#ff3b3b;
 }
 
 .card ul{
 list-style:none;
-line-height:1.8;
+line-height:2;
 font-size:14px;
 letter-spacing:1px;
 }
@@ -98,27 +137,55 @@ margin-bottom:6px;
 /* BOTON VOLVER */
 
 .back-btn{
-margin:50px 0 40px 0;
-padding:12px 28px;
+display:block;
+margin:60px auto 50px auto;
+padding:14px 32px;
 border:none;
-border-radius:12px;
+border-radius:14px;
 background:rgba(0,0,0,.8);
 color:white;
 cursor:pointer;
-letter-spacing:2px;
+letter-spacing:3px;
 transition:.3s;
 border:1px solid rgba(255,0,0,.4);
+font-weight:600;
+position:relative;
+z-index:1;
 }
 
 .back-btn:hover{
 background:rgba(30,0,0,.9);
-box-shadow:0 0 15px #ff0000;
+box-shadow:0 0 20px #ff0000;
+transform:scale(1.05);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.header h1{
+font-size:22px;
+letter-spacing:4px;
+}
+
+.container{
+gap:20px;
+}
+
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- VIDEO -->
+<video class="bg-video" autoplay muted loop playsinline>
+<source src="fia.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+<div class="top-line"></div>
 
 <div class="header">
 <h1>EQUIPO FIA</h1>
