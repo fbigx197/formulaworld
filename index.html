@@ -164,6 +164,7 @@ opacity:0;
 pointer-events:none;
 transition:1s;
 
+/* MOVIL */
 overflow-x:auto;
 overflow-y:hidden;
 width:90vw;
@@ -171,6 +172,7 @@ padding:20px;
 
 scroll-snap-type:x mandatory;
 -webkit-overflow-scrolling:touch;
+
 justify-content:flex-start;
 }
 
@@ -178,8 +180,6 @@ justify-content:flex-start;
 opacity:1;
 pointer-events:auto;
 }
-
-/* ocultar scrollbar */
 
 .menu-container::-webkit-scrollbar{
 display:none;
@@ -195,31 +195,17 @@ border-radius:16px;
 overflow:hidden;
 cursor:pointer;
 transition:.4s;
-
 scroll-snap-align:center;
 }
 
-.menu-card img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:.5s;
-}
-
-.menu-card:hover{
-transform:scale(1.08);
-box-shadow:0 0 15px red,0 0 40px rgba(255,0,0,.8);
-}
-
-.menu-card:hover img{
-transform:scale(1.1);
-}
-
-/* CENTRAR EN PC */
+/* PC */
 
 @media (min-width:900px){
 
 .menu-container{
+left:0;
+transform:translateY(-50%);
+width:100%;
 justify-content:center;
 overflow-x:hidden;
 }
