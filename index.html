@@ -39,7 +39,7 @@ object-fit:cover;
 z-index:-3;
 }
 
-/* OVERLAY OSCURO (APARECE DESPUES) */
+/* OVERLAY OSCURO */
 
 .overlay{
 position:fixed;
@@ -159,9 +159,19 @@ left:50%;
 transform:translate(-50%,-50%);
 display:flex;
 gap:35px;
+
 opacity:0;
 pointer-events:none;
 transition:1s;
+
+/* SCROLL HORIZONTAL */
+overflow-x:auto;
+overflow-y:hidden;
+width:90vw;
+padding:20px;
+
+scroll-snap-type:x mandatory;
+-webkit-overflow-scrolling:touch;
 }
 
 .menu-container.active{
@@ -169,13 +179,24 @@ opacity:1;
 pointer-events:auto;
 }
 
+/* ocultar barra scroll */
+
+.menu-container::-webkit-scrollbar{
+display:none;
+}
+
+/* TARJETAS */
+
 .menu-card{
+flex:0 0 auto;
 width:180px;
 height:230px;
 border-radius:16px;
 overflow:hidden;
 cursor:pointer;
 transition:.4s;
+
+scroll-snap-align:center;
 }
 
 .menu-card img{
@@ -194,7 +215,7 @@ box-shadow:0 0 15px red,0 0 40px rgba(255,0,0,.8);
 transform:scale(1.1);
 }
 
-/* LISTA FIA INICIAL */
+/* TEAM FIA */
 
 .fia-team{
 position:fixed;
@@ -230,17 +251,8 @@ animation:drop .7s forwards;
 .fia-team div:nth-child(3){animation-delay:1.2s;}
 
 @keyframes drop{
-
-0%{
-opacity:0;
-transform:translateY(-40px);
-}
-
-100%{
-opacity:1;
-transform:translateY(0);
-}
-
+0%{opacity:0;transform:translateY(-40px);}
+100%{opacity:1;transform:translateY(0);}
 }
 
 /* BOTON FIA */
