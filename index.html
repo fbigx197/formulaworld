@@ -65,7 +65,7 @@ letter-spacing:4px;
 font-weight:800;
 }
 
-/* BOTONES INICIO */
+/* BOTONES */
 
 .start-ui{
 position:fixed;
@@ -84,7 +84,6 @@ border:none;
 background:rgba(0,0,0,.7);
 color:white;
 cursor:pointer;
-backdrop-filter:blur(8px);
 transition:.3s;
 }
 
@@ -103,23 +102,16 @@ color:white;
 letter-spacing:2px;
 font-weight:700;
 cursor:pointer;
-
 animation:pulse 1.4s infinite;
 }
 
 @keyframes pulse{
-0%{
-box-shadow:0 0 5px #ff0000;
-}
-50%{
-box-shadow:0 0 20px #ff0000,0 0 40px rgba(255,0,0,.8);
-}
-100%{
-box-shadow:0 0 5px #ff0000;
-}
+0%{box-shadow:0 0 5px #ff0000;}
+50%{box-shadow:0 0 20px #ff0000,0 0 40px rgba(255,0,0,.8);}
+100%{box-shadow:0 0 5px #ff0000;}
 }
 
-/* MENU TARJETAS */
+/* TARJETAS */
 
 .menu-container{
 position:absolute;
@@ -156,16 +148,14 @@ transition:.5s;
 
 .menu-card:hover{
 transform:scale(1.08);
-box-shadow:
-0 0 10px #ff0000,
-0 0 40px rgba(255,0,0,.8);
+box-shadow:0 0 10px #ff0000,0 0 40px rgba(255,0,0,.8);
 }
 
 .menu-card:hover img{
 transform:scale(1.12);
 }
 
-/* EQUIPO FIA LISTA */
+/* LISTA EQUIPO FIA INICIAL */
 
 .fia-team{
 position:fixed;
@@ -175,37 +165,49 @@ transform:translateX(-50%);
 text-align:center;
 font-size:14px;
 letter-spacing:2px;
-opacity:0;
-}
-
-.fia-team.active{
-opacity:1;
 }
 
 .fia-team div{
 margin:6px 0;
-transform:translateY(-30px);
 opacity:0;
-animation:drop 0.7s forwards;
+transform:translateY(-30px);
+animation:drop .7s forwards;
 }
 
-.fia-team div:nth-child(1){animation-delay:.3s;}
-.fia-team div:nth-child(2){animation-delay:.6s;}
-.fia-team div:nth-child(3){animation-delay:.9s;}
-.fia-team div:nth-child(4){animation-delay:1.2s;}
+.fia-team div:nth-child(1){animation-delay:.4s;}
+.fia-team div:nth-child(2){animation-delay:.8s;}
+.fia-team div:nth-child(3){animation-delay:1.2s;}
 
 @keyframes drop{
-
 0%{
 transform:translateY(-40px);
 opacity:0;
 }
-
 100%{
 transform:translateY(0);
 opacity:1;
 }
+}
 
+/* BOTON FIA FINAL */
+
+.fia-button{
+position:fixed;
+bottom:90px;
+left:50%;
+transform:translateX(-50%);
+padding:14px 32px;
+border-radius:14px;
+background:rgba(0,0,0,.75);
+border:1px solid rgba(255,0,0,.5);
+letter-spacing:2px;
+cursor:pointer;
+display:none;
+transition:.4s;
+}
+
+.fia-button:hover{
+box-shadow:0 0 10px #ff0000,0 0 30px rgba(255,0,0,.8);
 }
 
 </style>
@@ -223,7 +225,7 @@ opacity:1;
 <div class="logo">FORMULA WORLD GX</div>
 </nav>
 
-<!-- BOTONES INICIO -->
+<!-- BOTONES -->
 
 <div class="start-ui">
 
@@ -259,12 +261,18 @@ INICIAR
 
 </div>
 
-<!-- EQUIPO FIA -->
+<!-- EQUIPO FIA INICIAL -->
 
 <div class="fia-team" id="fiaTeam">
 <div>Comisario FIA — Gennaro Foressi</div>
 <div>Comisario FIA — Ethan Collins</div>
 <div>SubComisario FIA — César Bustos</div>
+</div>
+
+<!-- BOTON FIA FINAL -->
+
+<div class="fia-button" id="fiaBtn" onclick="go('fia.html')">
+EQUIPO FIA
 </div>
 
 <audio id="bgMusic" src="f1mp3.mp3" loop></audio>
@@ -275,6 +283,7 @@ const music=document.getElementById("bgMusic");
 const btn=document.getElementById("musicBtn");
 const menu=document.getElementById("menu");
 const team=document.getElementById("fiaTeam");
+const fiaBtn=document.getElementById("fiaBtn");
 
 music.volume=0.5;
 
@@ -298,7 +307,10 @@ btn.textContent="MUSICA OFF";
 function startSite(){
 
 menu.classList.add("active");
-team.classList.add("active");
+
+team.style.display="none";
+
+fiaBtn.style.display="block";
 
 document.querySelector(".start-btn").style.display="none";
 
