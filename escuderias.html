@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Equipo</title>
+<title>Escuderías 2026</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
@@ -14,154 +14,90 @@ font-family:'Orbitron',sans-serif;
 background:black;
 color:white;
 padding:40px;
-text-align:center;
 }
 
 h1{
-letter-spacing:5px;
-margin-bottom:20px;
+text-align:center;
+letter-spacing:6px;
+margin-bottom:50px;
 }
 
-.logo{
-width:150px;
-height:150px;
+.team-cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border-radius:16px;
+padding:30px;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+border:1px solid rgba(255,255,255,.1);
+text-decoration:none;
+color:white;
+}
+
+.card:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px red;
+}
+
+.card img{
+width:100px;
+height:100px;
 border-radius:50%;
 border:3px solid red;
 object-fit:cover;
-margin-bottom:30px;
-}
-
-.section{
-margin-top:30px;
-}
-
-.back-btn{
-margin-top:50px;
-display:inline-block;
-padding:12px 25px;
-background:red;
-border-radius:8px;
-color:white;
-text-decoration:none;
+margin-bottom:20px;
 }
 </style>
 </head>
 
 <body>
 
-<h1 id="teamName"></h1>
-<img id="teamLogo" class="logo">
+<h1>ESCUDERÍAS 2026</h1>
 
-<div class="section">
-<h3>Dueño</h3>
-<p id="teamOwner"></p>
-</div>
+<div class="team-cards">
 
-<div class="section">
-<h3>Pilotos</h3>
-<div id="teamDrivers"></div>
-</div>
-
-<div class="section">
-<h3>Mecánicos</h3>
-<div id="teamMechanics"></div>
-</div>
-
-<a href="escuderias.html" class="back-btn">
-⬅ REGRESAR A ESCUDERÍAS
+<a href="mercedes.html" class="card">
+<img src="luther.jpg">
+<h3>Mercedes Petronas</h3>
 </a>
 
-<script>
+<a href="valhalla.html" class="card">
+<img src="mernius.jpg">
+<h3>Scuderia Valhalla</h3>
+</a>
 
-const equipos={
+<a href="blackwell.html" class="card">
+<img src="Dave.jpg">
+<h3>Blackwell Racing Bulls</h3>
+</a>
 
-mercedes:{
-nombre:"Mercedes Petronas",
-logo:"luther.jpg",
-dueno:"Toto Wolff",
-pilotos:[
-"Luther Schdler",
-"Alessandro Lora",
-"Anthony DeSciglio",
-"Nicolas Simeone"
-],
-mecanicos:[
-"James Carter",
-"Leo Martins",
-"Oliver Nash"
-]
-},
+<a href="skyline.html" class="card">
+<img src="luko.jpg">
+<h3>Skyline Racing</h3>
+</a>
 
-valhalla:{
-nombre:"Scuderia Valhalla",
-logo:"mernius.jpg",
-dueno:"Erik Lindstrom",
-pilotos:[
-"Leon Lindstrom",
-"Kaarl Lindstrom",
-"Nathan Brooks"
-],
-mecanicos:[
-"Victor Kane",
-"Adam Schultz"
-]
-},
+<a href="aether.html" class="card">
+<img src="logo5.jpg">
+<h3>Aether Motorsport</h3>
+</a>
 
-blackwell:{
-nombre:"Blackwell Racing Bulls",
-logo:"Dave.jpg",
-dueno:"Luke Blackwell Sr.",
-pilotos:[
-"Dave Blackwell",
-"Luke Blackwell",
-"Gretzky Sergeev",
-"Arkady Reznikov"
-],
-mecanicos:[
-"Marco Vidal",
-"Shane Cooper"
-]
-},
+<a href="phoenix.html" class="card">
+<img src="logo6.jpg">
+<h3>Phoenix GP</h3>
+</a>
 
-skyline:{
-nombre:"Skyline Racing",
-logo:"luko.jpg",
-dueno:"Takashi Yamato",
-pilotos:[
-"Luko Magno",
-"Guillermo Zambada",
-"Lorenzo Abruzzi",
-"Yepez"
-],
-mecanicos:[
-"Kenji Sato",
-"Hiro Tanaka"
-]
-}
+<a href="titanium.html" class="card">
+<img src="logo7.jpg">
+<h3>Titanium Racing</h3>
+</a>
 
-}
-
-// Obtener parámetro URL
-const params=new URLSearchParams(window.location.search)
-const teamID=params.get("team")
-
-if(equipos[teamID]){
-
-const team=equipos[teamID]
-
-document.getElementById("teamName").textContent=team.nombre
-document.getElementById("teamLogo").src=team.logo
-document.getElementById("teamOwner").textContent=team.dueno
-
-document.getElementById("teamDrivers").innerHTML=
-team.pilotos.map(p=>`<p>${p}</p>`).join("")
-
-document.getElementById("teamMechanics").innerHTML=
-team.mecanicos.map(m=>`<p>${m}</p>`).join("")
-
-}
-
-</script>
+</div>
 
 </body>
 </html>
