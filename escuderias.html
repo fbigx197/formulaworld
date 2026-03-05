@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -78,6 +79,7 @@ height:40vh;
 display:flex;
 justify-content:center;
 align-items:center;
+text-align:center;
 }
 
 .hero h1{
@@ -100,7 +102,7 @@ border-left:5px solid red;
 padding-left:15px;
 }
 
-/* TARJETAS ESCUDERIAS */
+/* GRID TARJETAS */
 
 .team-cards{
 display:grid;
@@ -108,41 +110,39 @@ grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 gap:30px;
 }
 
-/* CARD */
+/* TARJETAS PRO */
 
 .card{
 
 position:relative;
 height:260px;
 
-background:rgba(255,255,255,.05);
-border-radius:14px;
-
 display:flex;
 flex-direction:column;
-align-items:center;
 justify-content:center;
+align-items:center;
 
 cursor:pointer;
 
-transition:.35s;
+border-radius:16px;
 
-border:1px solid rgba(255,255,255,.05);
+background:linear-gradient(
+145deg,
+rgba(255,255,255,0.08),
+rgba(255,255,255,0.02)
+);
+
+backdrop-filter:blur(10px);
+
+border:1px solid rgba(255,255,255,0.08);
 
 overflow:hidden;
-}
 
-.card:hover{
-
-transform:translateY(-8px) scale(1.03);
-
-background:rgba(255,255,255,.08);
-
-box-shadow:0 0 25px rgba(255,0,0,.35);
+transition:.35s;
 
 }
 
-/* brillo animado */
+/* BORDE NEON */
 
 .card::before{
 
@@ -150,47 +150,128 @@ content:"";
 
 position:absolute;
 
-top:-50%;
-left:-50%;
+inset:-1px;
 
-width:200%;
-height:200%;
+border-radius:16px;
 
-background:linear-gradient(120deg,transparent,rgba(255,0,0,.4),transparent);
+background:linear-gradient(
+120deg,
+transparent,
+red,
+transparent
+);
+
+opacity:0;
+
+transition:.4s;
+
+}
+
+/* LINEA LUZ */
+
+.card::after{
+
+content:"";
+
+position:absolute;
+
+top:-200%;
+
+left:-40%;
+
+width:180%;
+height:400%;
+
+background:linear-gradient(
+120deg,
+transparent,
+rgba(255,0,0,.6),
+transparent
+);
 
 transform:rotate(25deg);
 
 opacity:0;
 
-transition:.5s;
+}
+
+/* HOVER */
+
+.card:hover{
+
+transform:translateY(-10px) scale(1.05);
+
+box-shadow:
+0 0 15px rgba(255,0,0,.4),
+0 0 35px rgba(255,0,0,.2),
+inset 0 0 25px rgba(255,0,0,.15);
 
 }
 
 .card:hover::before{
-
 opacity:1;
+}
 
-animation:shine 1.4s linear;
+.card:hover::after{
+opacity:1;
+animation:scan 1.2s linear;
+}
+
+@keyframes scan{
+
+0%{
+transform:translateX(-200%) rotate(25deg);
+}
+
+100%{
+transform:translateX(200%) rotate(25deg);
+}
 
 }
 
-@keyframes shine{
-0%{transform:translateX(-200%) rotate(25deg)}
-100%{transform:translateX(200%) rotate(25deg)}
-}
+/* LOGO */
 
 .card img{
-width:85px;
-height:85px;
+
+width:95px;
+height:95px;
+
 border-radius:50%;
+
+border:3px solid red;
+
 object-fit:cover;
-margin-bottom:15px;
-border:2px solid red;
+
+margin-bottom:18px;
+
+transition:.3s;
+
 }
 
+/* LOGO HOVER */
+
+.card:hover img{
+
+transform:scale(1.15);
+
+box-shadow:
+0 0 10px red,
+0 0 25px rgba(255,0,0,.6);
+
+}
+
+/* NOMBRE ESCUDERIA */
+
 .card h3{
+
 font-size:18px;
+
+letter-spacing:1px;
+
 text-align:center;
+
+text-shadow:0 0 6px rgba(255,0,0,.5);
+
 }
 
 /* PANEL ESCUDERIA */
@@ -198,21 +279,16 @@ text-align:center;
 .team-panel{
 
 position:fixed;
-
 inset:0;
-
 background:rgba(0,0,0,.95);
 
 display:flex;
-
 justify-content:center;
-
 align-items:center;
 
 z-index:9999;
 
 opacity:0;
-
 pointer-events:none;
 
 transition:.4s;
@@ -224,12 +300,11 @@ opacity:1;
 pointer-events:auto;
 }
 
-/* PANEL CONTENIDO */
+/* CONTENIDO PANEL */
 
 .panel-content{
 
 width:700px;
-
 max-width:90%;
 
 background:rgba(255,255,255,.05);
@@ -275,21 +350,11 @@ object-fit:cover;
 
 }
 
-.panel-content h2{
-margin-bottom:20px;
-}
-
 .panel-content h4{
 color:red;
 margin-top:20px;
 margin-bottom:8px;
 }
-
-.panel-content p{
-margin-bottom:5px;
-}
-
-/* BOTON CERRAR */
 
 .close-btn{
 
@@ -318,7 +383,6 @@ border-radius:8px;
 position:fixed;
 
 bottom:20px;
-
 left:20px;
 
 padding:12px 18px;
@@ -514,9 +578,7 @@ document.getElementById("teamPanel").classList.add("active")
 }
 
 function closePanel(){
-
 document.getElementById("teamPanel").classList.remove("active")
-
 }
 
 /* MUSICA */
@@ -549,3 +611,4 @@ document.getElementById("musicBtn").textContent="SONIDO OFF"
 
 </body>
 </html>
+```
