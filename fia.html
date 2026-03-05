@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipo FIA | Formula World GX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Orbitron',sans-serif;
+}
+
+body{
+background:#050505;
+color:white;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+/* HEADER */
+
+.header{
+width:100%;
+padding:25px;
+text-align:center;
+background:rgba(0,0,0,.9);
+border-bottom:1px solid rgba(255,0,0,.4);
+}
+
+.header h1{
+letter-spacing:4px;
+font-weight:800;
+}
+
+.header p{
+margin-top:8px;
+font-size:13px;
+color:rgba(255,255,255,.6);
+letter-spacing:2px;
+}
+
+/* CONTENEDOR */
+
+.container{
+width:90%;
+max-width:1100px;
+margin-top:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+/* CARD */
+
+.card{
+background:rgba(15,15,15,.9);
+padding:25px;
+border-radius:18px;
+border:1px solid rgba(255,0,0,.3);
+transition:.4s;
+position:relative;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:
+0 0 10px #ff0000,
+0 0 40px rgba(255,0,0,.6);
+}
+
+.card h2{
+font-size:16px;
+margin-bottom:15px;
+letter-spacing:2px;
+color:#ff3b3b;
+}
+
+.card ul{
+list-style:none;
+line-height:1.8;
+font-size:14px;
+letter-spacing:1px;
+}
+
+.card ul li{
+margin-bottom:6px;
+}
+
+/* BOTON VOLVER */
+
+.back-btn{
+margin:50px 0 40px 0;
+padding:12px 28px;
+border:none;
+border-radius:12px;
+background:rgba(0,0,0,.8);
+color:white;
+cursor:pointer;
+letter-spacing:2px;
+transition:.3s;
+border:1px solid rgba(255,0,0,.4);
+}
+
+.back-btn:hover{
+background:rgba(30,0,0,.9);
+box-shadow:0 0 15px #ff0000;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>EQUIPO FIA</h1>
+<p>Formula World GX - Comisión Oficial</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>COMISARIOS FIA</h2>
+<ul>
+<li>Ethan Collins</li>
+<li>Gennaro Foressi</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>SUBCOMISARIO FIA</h2>
+<ul>
+<li>César Bustos</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>DIRECTOR DE CARRERAS</h2>
+<ul>
+<li>Blake Laurent</li>
+<li>Kenzie Allen</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>OFICIAL DE BANDERAS</h2>
+<ul>
+<li>Andrea Herrera</li>
+<li>Varkhan Marx</li>
+<li>Antoine Solokov</li>
+</ul>
+</div>
+
+</div>
+
+<button class="back-btn" onclick="window.location.href='index.html'">
+VOLVER AL INICIO
+</button>
+
+</body>
+</html>
