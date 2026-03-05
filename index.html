@@ -5,14 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formula World GX</title>
 
-<!-- FUENTE -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
-<!-- ICONO WEB -->
 <link rel="icon" type="image/png" href="formulalogo.png">
 <link rel="apple-touch-icon" href="formulalogo.png">
 
-<!-- PREVIEW DISCORD / REDES -->
 <meta property="og:title" content="Formula World GX">
 <meta property="og:description" content="Formula World GX, el sitio de los corredores">
 <meta property="og:image" content="formulalogo.png">
@@ -20,6 +17,7 @@
 <meta name="theme-color" content="#000000">
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -33,7 +31,7 @@ color:white;
 overflow:hidden;
 }
 
-/* VIDEO FONDO */
+/* VIDEO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -77,7 +75,7 @@ align-items:center;
 justify-content:center;
 }
 
-/* MENU PRINCIPAL */
+/* MENU */
 .main-menu{
 display:flex;
 gap:60px;
@@ -159,24 +157,22 @@ font-weight:600;
 color:white;
 margin-top:4px;
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- VIDEO FONDO -->
 <video class="bg-video" autoplay muted loop playsinline>
 <source src="f1-video.mp4" type="video/mp4">
 </video>
 
 <div class="overlay"></div>
 
-<!-- NAVBAR -->
 <nav class="navbar">
 <div class="logo">FORMULA WORLD GX</div>
 </nav>
 
-<!-- MENU -->
 <section class="hero">
 
 <div class="main-menu">
@@ -215,20 +211,22 @@ Director de Carreras
 <img src="pistas.png">
 </div>
 
+<!-- ESCUDERIAS (NUEVA TARJETA) -->
+<div class="menu-card" onclick="go('escuderias.html')">
+<img src="escuderias.png">
+</div>
+
 </div>
 </section>
 
-<!-- AUDIO -->
 <audio id="bgMusic" src="NFS.mp3" loop></audio>
 
 <script>
 
-/* NAVEGACION */
 function go(link){
 window.location.href = link;
 }
 
-/* MUSICA */
 const music = document.getElementById("bgMusic");
 const btn = document.getElementById("musicBtn");
 
