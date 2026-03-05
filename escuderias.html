@@ -3,313 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formula World GX</title>
+<title>Equipo</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
 body{
+margin:0;
 font-family:'Orbitron',sans-serif;
 background:black;
 color:white;
-overflow-x:hidden;
+padding:40px;
+text-align:center;
 }
 
-/* VIDEO FONDO */
-.bg-video{
-position:fixed;
-inset:0;
-width:100%;
-height:100%;
-object-fit:cover;
-z-index:-3;
-}
-
-.overlay{
-position:fixed;
-inset:0;
-background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.95));
-z-index:-2;
-}
-
-/* NAVBAR */
-.navbar{
-position:fixed;
-top:0;
-width:100%;
-padding:18px 50px;
-background:rgba(0,0,0,.85);
-backdrop-filter:blur(10px);
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:2px solid red;
-z-index:1000;
+h1{
+letter-spacing:5px;
+margin-bottom:20px;
 }
 
 .logo{
-font-weight:800;
-letter-spacing:3px;
-}
-
-.btn{
-padding:10px 20px;
-background:linear-gradient(45deg,#ff0000,#ff6a00);
-border:none;
-border-radius:8px;
-color:white;
-cursor:pointer;
-font-family:'Orbitron';
-text-decoration:none;
-display:inline-block;
-transition:.3s;
-}
-
-.btn:hover{
-transform:scale(1.05);
-box-shadow:0 0 15px rgba(255,0,0,.6);
-}
-
-/* HERO */
-.hero{
-height:40vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
-
-.hero h1{
-font-size:60px;
-letter-spacing:8px;
-}
-
-/* CONTENEDOR */
-.container{
-width:90%;
-margin:auto;
-padding-bottom:120px;
-}
-
-.section-title{
-margin:50px 0 30px;
-font-size:26px;
-border-left:5px solid red;
-padding-left:15px;
-}
-
-/* GRID TARJETAS */
-.team-cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:30px;
-}
-
-/* TARJETAS */
-.card{
-position:relative;
-height:260px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-cursor:pointer;
-border-radius:16px;
-background:linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02));
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.08);
-overflow:hidden;
-transition:.35s;
-}
-
-.card::before{
-content:"";
-position:absolute;
-inset:-1px;
-border-radius:16px;
-background:linear-gradient(120deg,transparent,red,transparent);
-opacity:0;
-transition:.4s;
-}
-
-.card::after{
-content:"";
-position:absolute;
-top:-200%;
-left:-40%;
-width:180%;
-height:400%;
-background:linear-gradient(120deg,transparent,rgba(255,0,0,.6),transparent);
-transform:rotate(25deg);
-opacity:0;
-}
-
-.card:hover{
-transform:translateY(-10px) scale(1.05);
-box-shadow:
-0 0 15px rgba(255,0,0,.4),
-0 0 35px rgba(255,0,0,.2),
-inset 0 0 25px rgba(255,0,0,.15);
-}
-
-.card:hover::before{
-opacity:1;
-}
-
-.card:hover::after{
-opacity:1;
-animation:scan 1.2s linear;
-}
-
-@keyframes scan{
-0%{transform:translateX(-200%) rotate(25deg);}
-100%{transform:translateX(200%) rotate(25deg);}
-}
-
-.card img{
-width:95px;
-height:95px;
+width:150px;
+height:150px;
 border-radius:50%;
 border:3px solid red;
 object-fit:cover;
-margin-bottom:18px;
-transition:.3s;
+margin-bottom:30px;
 }
 
-.card:hover img{
-transform:scale(1.15);
-box-shadow:0 0 10px red,0 0 25px rgba(255,0,0,.6);
-}
-
-.card h3{
-font-size:18px;
-letter-spacing:1px;
-text-align:center;
-text-shadow:0 0 6px rgba(255,0,0,.5);
-}
-
-/* PANEL */
-.team-panel{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.95);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-opacity:0;
-pointer-events:none;
-transition:.4s;
-}
-
-.team-panel.active{
-opacity:1;
-pointer-events:auto;
-}
-
-.panel-content{
-width:700px;
-max-width:90%;
-background:rgba(255,255,255,.05);
-border-radius:14px;
-padding:40px;
-text-align:center;
-border:1px solid rgba(255,255,255,.1);
-animation:panelAnim .4s ease;
-}
-
-@keyframes panelAnim{
-from{transform:scale(.8);opacity:0;}
-to{transform:scale(1);opacity:1;}
-}
-
-.panel-content img{
-width:120px;
-height:120px;
-border-radius:50%;
-border:3px solid red;
-margin-bottom:20px;
-object-fit:cover;
-}
-
-.panel-content h4{
-color:red;
-margin-top:20px;
-margin-bottom:8px;
-}
-
-.close-btn{
+.section{
 margin-top:30px;
-padding:10px 25px;
-background:red;
-border:none;
-color:white;
-font-family:'Orbitron';
-cursor:pointer;
-border-radius:8px;
 }
 
-.music-toggle{
-position:fixed;
-bottom:20px;
-left:20px;
-padding:12px 18px;
-border:none;
-border-radius:10px;
-background:rgba(0,0,0,.8);
+.back-btn{
+margin-top:50px;
+display:inline-block;
+padding:12px 25px;
+background:red;
+border-radius:8px;
 color:white;
-cursor:pointer;
-z-index:2000;
+text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<video class="bg-video" autoplay muted loop playsinline>
-<source src="f1-video.mp4" type="video/mp4">
-</video>
+<h1 id="teamName"></h1>
+<img id="teamLogo" class="logo">
 
-<div class="overlay"></div>
-
-<div class="navbar">
-<div class="logo">FORMULA WORLD GX</div>
-<a href="index.html" class="btn">INICIO</a>
+<div class="section">
+<h3>Dueño</h3>
+<p id="teamOwner"></p>
 </div>
 
-<section class="hero">
-<h1>ESCUDERÍAS 2026</h1>
-</section>
-
-<div class="container">
-<div class="section-title">PADDOCK</div>
-<div class="team-cards" id="teamCards"></div>
+<div class="section">
+<h3>Pilotos</h3>
+<div id="teamDrivers"></div>
 </div>
 
-<div class="team-panel" id="teamPanel">
-<div class="panel-content">
-<img id="panelLogo">
-<h2 id="panelName"></h2>
-<div id="panelInfo"></div>
-<button class="close-btn" onclick="closePanel()">CERRAR</button>
-</div>
+<div class="section">
+<h3>Mecánicos</h3>
+<div id="teamMechanics"></div>
 </div>
 
-<audio id="bgMusic" src="NFS.mp3" loop></audio>
-
-<button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
-SONIDO OFF
-</button>
+<a href="escuderias.html" class="back-btn">
+⬅ REGRESAR A ESCUDERÍAS
+</a>
 
 <script>
-// TU SCRIPT SE MANTIENE EXACTAMENTE IGUAL
-// (no lo modifiqué porque ya funcionaba perfecto)
+
+const equipos={
+
+mercedes:{
+nombre:"Mercedes Petronas",
+logo:"luther.jpg",
+dueno:"Toto Wolff",
+pilotos:[
+"Luther Schdler",
+"Alessandro Lora",
+"Anthony DeSciglio",
+"Nicolas Simeone"
+],
+mecanicos:[
+"James Carter",
+"Leo Martins",
+"Oliver Nash"
+]
+},
+
+valhalla:{
+nombre:"Scuderia Valhalla",
+logo:"mernius.jpg",
+dueno:"Erik Lindstrom",
+pilotos:[
+"Leon Lindstrom",
+"Kaarl Lindstrom",
+"Nathan Brooks"
+],
+mecanicos:[
+"Victor Kane",
+"Adam Schultz"
+]
+},
+
+blackwell:{
+nombre:"Blackwell Racing Bulls",
+logo:"Dave.jpg",
+dueno:"Luke Blackwell Sr.",
+pilotos:[
+"Dave Blackwell",
+"Luke Blackwell",
+"Gretzky Sergeev",
+"Arkady Reznikov"
+],
+mecanicos:[
+"Marco Vidal",
+"Shane Cooper"
+]
+},
+
+skyline:{
+nombre:"Skyline Racing",
+logo:"luko.jpg",
+dueno:"Takashi Yamato",
+pilotos:[
+"Luko Magno",
+"Guillermo Zambada",
+"Lorenzo Abruzzi",
+"Yepez"
+],
+mecanicos:[
+"Kenji Sato",
+"Hiro Tanaka"
+]
+}
+
+}
+
+// Obtener parámetro URL
+const params=new URLSearchParams(window.location.search)
+const teamID=params.get("team")
+
+if(equipos[teamID]){
+
+const team=equipos[teamID]
+
+document.getElementById("teamName").textContent=team.nombre
+document.getElementById("teamLogo").src=team.logo
+document.getElementById("teamOwner").textContent=team.dueno
+
+document.getElementById("teamDrivers").innerHTML=
+team.pilotos.map(p=>`<p>${p}</p>`).join("")
+
+document.getElementById("teamMechanics").innerHTML=
+team.mecanicos.map(m=>`<p>${m}</p>`).join("")
+
+}
+
 </script>
 
 </body>
