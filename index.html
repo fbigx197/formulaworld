@@ -20,10 +20,10 @@ font-family:'Orbitron',sans-serif;
 body{
 background:#000;
 color:white;
-overflow:hidden;
+overflow-x:hidden;
 }
 
-/* VIDEO INTRO */
+/* VIDEO */
 
 #intro{
 position:fixed;
@@ -40,7 +40,7 @@ height:100%;
 object-fit:cover;
 }
 
-/* OSCURECER AL INICIAR */
+/* OSCURECER VIDEO */
 
 #intro.dark video{
 filter:brightness(35%);
@@ -59,6 +59,7 @@ padding:14px 30px;
 
 background:#ff0000;
 color:white;
+
 border:none;
 
 font-size:18px;
@@ -98,16 +99,19 @@ border:1px solid white;
 
 cursor:pointer;
 
+border-radius:8px;
+
 z-index:3;
 }
 
-/* EQUIPOS FIA */
+/* EQUIPOS */
 
 #teams{
 
 position:absolute;
-bottom:10px;
+bottom:20px;
 width:100%;
+
 text-align:center;
 
 font-size:14px;
@@ -122,16 +126,21 @@ animation:drop 1.5s ease forwards;
 opacity:0;
 }
 
-.team:nth-child(1){animation-delay:0.3s}
-.team:nth-child(2){animation-delay:0.6s}
-.team:nth-child(3){animation-delay:0.9s}
-.team:nth-child(4){animation-delay:1.2s}
-.team:nth-child(5){animation-delay:1.5s}
+.team:nth-child(1){animation-delay:0.2s}
+.team:nth-child(2){animation-delay:0.4s}
+.team:nth-child(3){animation-delay:0.6s}
+.team:nth-child(4){animation-delay:0.8s}
+.team:nth-child(5){animation-delay:1s}
+.team:nth-child(6){animation-delay:1.2s}
+.team:nth-child(7){animation-delay:1.4s}
+.team:nth-child(8){animation-delay:1.6s}
+.team:nth-child(9){animation-delay:1.8s}
+.team:nth-child(10){animation-delay:2s}
 
 @keyframes drop{
 
 0%{
-transform:translateY(-50px);
+transform:translateY(-40px);
 opacity:0;
 }
 
@@ -153,12 +162,20 @@ left:50%;
 transform:translate(-50%,-50%);
 
 display:flex;
-gap:30px;
+flex-wrap:wrap;
+
+justify-content:center;
+align-items:center;
+
+gap:40px;
 
 opacity:0;
+
 transition:1s;
 
 z-index:4;
+
+max-width:90%;
 
 }
 
@@ -171,7 +188,7 @@ background:#111;
 
 border:1px solid red;
 
-border-radius:10px;
+border-radius:14px;
 
 display:flex;
 align-items:center;
@@ -179,14 +196,49 @@ justify-content:center;
 
 font-size:20px;
 
+backdrop-filter:blur(5px);
+
+transition:0.3s;
+
+}
+
+.card:hover{
+
+transform:scale(1.05);
+box-shadow:0 0 15px red;
+
+}
+
+/* RESPONSIVE MOVIL */
+
+@media (max-width:768px){
+
+#cards{
+gap:20px;
+}
+
+.card{
+width:160px;
+height:240px;
+font-size:16px;
+}
+
+#startBtn{
+right:20px;
+bottom:20px;
+}
+
+#musicBtn{
+left:20px;
+bottom:20px;
+}
+
 }
 
 </style>
 </head>
 
 <body>
-
-<!-- INTRO VIDEO -->
 
 <div id="intro">
 
@@ -215,13 +267,12 @@ font-size:20px;
 
 </div>
 
-<!-- TARJETAS -->
-
 <div id="cards">
 
-<div class="card">PILOTO 1</div>
-<div class="card">PILOTO 2</div>
-<div class="card">PILOTO 3</div>
+<div class="card">CAMPEONATOS</div>
+<div class="card">PILOTOS</div>
+<div class="card">PISTAS</div>
+<div class="card">ESCUDERIAS</div>
 
 </div>
 
