@@ -3,10 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Formula World GX</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="formulalogo.png">
+
+<meta property="og:title" content="Formula World GX">
+<meta property="og:description" content="Formula World GX, el sitio de los corredores">
+<meta property="og:image" content="formulalogo.png">
+<meta name="theme-color" content="#000000">
 
 <style>
 
@@ -14,10 +19,10 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:'Orbitron',sans-serif;
 }
 
 body{
-font-family:'Orbitron',sans-serif;
 background:black;
 color:white;
 overflow:hidden;
@@ -25,144 +30,237 @@ overflow:hidden;
 
 /* VIDEO */
 
-#video-bg{
+.bg-video{
 position:fixed;
-top:0;
-left:0;
+inset:0;
 width:100%;
 height:100%;
 object-fit:cover;
-z-index:-2;
-filter:none;
+z-index:-3;
+}
+
+/* OVERLAY OSCURO (APARECE DESPUES) */
+
+.overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.9));
+opacity:0;
 transition:1s;
+z-index:-2;
 }
 
-#video-bg.dark{
-filter:brightness(0.35) contrast(1.2);
+.overlay.active{
+opacity:1;
 }
 
-/* TITULO */
+/* NAVBAR */
 
-.header{
-position:absolute;
-top:20px;
+.navbar{
+position:fixed;
+top:0;
 width:100%;
-text-align:center;
-font-size:18px;
-letter-spacing:6px;
-opacity:.8;
+padding:18px;
+display:flex;
+justify-content:center;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(6px);
 }
 
-/* BOTON MUSICA */
+.logo{
+font-size:22px;
+letter-spacing:4px;
+font-weight:800;
+}
 
-.music{
-position:absolute;
-bottom:40px;
-left:40px;
-background:black;
-border:1px solid #333;
-padding:10px 18px;
-border-radius:20px;
+/* BOTONES */
+
+.start-ui{
+position:fixed;
+bottom:30px;
+left:30px;
+right:30px;
+display:flex;
+justify-content:space-between;
+z-index:10;
+}
+
+.music-btn{
+padding:12px 20px;
+border-radius:12px;
+border:none;
+background:rgba(0,0,0,.6);
+color:white;
 cursor:pointer;
-font-size:13px;
+}
+
+.music-btn:hover{
+background:#ff0000;
 }
 
 /* BOTON INICIAR */
 
-.start{
-position:absolute;
-bottom:40px;
-right:40px;
-background:red;
-padding:14px 34px;
-border-radius:12px;
+.start-btn{
+padding:16px 35px;
+border-radius:14px;
+border:none;
+background:#ff0000;
+color:white;
+letter-spacing:2px;
 font-weight:700;
 cursor:pointer;
-animation:blink 1s infinite;
+animation:pulse 1.4s infinite;
 }
 
-@keyframes blink{
-0%{box-shadow:0 0 5px red}
-50%{box-shadow:0 0 25px red}
-100%{box-shadow:0 0 5px red}
+@keyframes pulse{
+0%{box-shadow:0 0 5px #ff0000;}
+50%{box-shadow:0 0 25px #ff0000,0 0 60px rgba(255,0,0,.8);}
+100%{box-shadow:0 0 5px #ff0000;}
 }
 
-/* TEAM FIA */
+/* SEMAFORO F1 */
 
-.team{
-position:absolute;
-bottom:120px;
-width:100%;
-text-align:center;
-font-family:'Rajdhani',sans-serif;
-font-size:20px;
-letter-spacing:2px;
-}
-
-.team span{
-display:block;
-opacity:0;
-transform:translateY(-80px);
-animation:drop 1s forwards;
-}
-
-.team span:nth-child(1){animation-delay:.3s}
-.team span:nth-child(2){animation-delay:.7s}
-.team span:nth-child(3){animation-delay:1.1s}
-
-@keyframes drop{
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* SEMAFORO */
-
-.lights{
-position:absolute;
-top:120px;
-width:100%;
+.start-lights{
+position:fixed;
+top:45%;
+left:50%;
+transform:translate(-50%,-50%);
 display:flex;
-justify-content:center;
 gap:15px;
+opacity:0;
 }
 
 .light{
-width:22px;
-height:22px;
+width:40px;
+height:40px;
 border-radius:50%;
-background:#111;
-border:2px solid #333;
+background:#220000;
+border:2px solid #550000;
+transition:.3s;
 }
 
-.light.red{background:red}
-.light.green{background:#00ff6a}
+.light.on{
+background:red;
+box-shadow:0 0 15px red,0 0 40px red;
+}
+
+.light.green{
+background:#00ff6a;
+box-shadow:0 0 15px #00ff6a,0 0 40px #00ff6a;
+border-color:#00ff6a;
+}
 
 /* TARJETAS */
 
-.cards{
+.menu-container{
 position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-display:none;
-align-items:center;
-justify-content:center;
-gap:40px;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+display:flex;
+gap:35px;
+opacity:0;
+pointer-events:none;
+transition:1s;
 }
 
-.card{
-width:260px;
-height:380px;
-background:rgba(0,0,0,.7);
-border:1px solid #444;
+.menu-container.active{
+opacity:1;
+pointer-events:auto;
+}
+
+.menu-card{
+width:180px;
+height:230px;
 border-radius:16px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
+overflow:hidden;
+cursor:pointer;
+transition:.4s;
+}
+
+.menu-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.5s;
+}
+
+.menu-card:hover{
+transform:scale(1.08);
+box-shadow:0 0 15px red,0 0 40px rgba(255,0,0,.8);
+}
+
+.menu-card:hover img{
+transform:scale(1.1);
+}
+
+/* LISTA FIA INICIAL */
+
+.fia-team{
+position:fixed;
+bottom:120px;
+left:50%;
+transform:translateX(-50%);
+text-align:center;
+font-size:15px;
+letter-spacing:3px;
+}
+
+.fia-team div{
+
+margin:8px 0;
+opacity:0;
+transform:translateY(-40px);
+
+background:linear-gradient(90deg,#ffffff,#ff3b3b,#ffffff);
+-webkit-background-clip:text;
+color:transparent;
+
+font-weight:600;
+
+text-shadow:
+0 0 6px rgba(255,0,0,.6),
+0 0 20px rgba(255,0,0,.4);
+
+animation:drop .7s forwards;
+}
+
+.fia-team div:nth-child(1){animation-delay:.4s;}
+.fia-team div:nth-child(2){animation-delay:.8s;}
+.fia-team div:nth-child(3){animation-delay:1.2s;}
+
+@keyframes drop{
+
+0%{
+opacity:0;
+transform:translateY(-40px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* BOTON FIA */
+
+.fia-button{
+position:fixed;
+bottom:90px;
+left:50%;
+transform:translateX(-50%);
+padding:14px 32px;
+border-radius:14px;
+background:rgba(0,0,0,.8);
+border:1px solid rgba(255,0,0,.6);
+letter-spacing:2px;
+cursor:pointer;
+display:none;
+}
+
+.fia-button:hover{
+box-shadow:0 0 10px red,0 0 30px rgba(255,0,0,.8);
 }
 
 </style>
@@ -170,122 +268,149 @@ font-size:22px;
 
 <body>
 
-<video id="video-bg" autoplay muted loop>
-<source src="video.mp4" type="video/mp4">
+<video class="bg-video" autoplay muted loop playsinline>
+<source src="fia.mp4" type="video/mp4">
 </video>
 
-<div class="header">FORMULA WORLD GX</div>
+<div class="overlay" id="overlay"></div>
 
-<div class="lights">
+<nav class="navbar">
+<div class="logo">FORMULA WORLD GX</div>
+</nav>
 
-<div class="light" id="l1"></div>
-<div class="light" id="l2"></div>
-<div class="light" id="l3"></div>
-<div class="light" id="l4"></div>
-<div class="light" id="l5"></div>
+<!-- SEMAFORO -->
 
+<div class="start-lights" id="lights">
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
 </div>
 
-<div class="team">
+<!-- BOTONES -->
 
-<span>Comisario FIA — Gennaro Foressi</span>
-<span>Comisario FIA — Ethan Collins</span>
-<span>SubComisario FIA — César Bustos</span>
+<div class="start-ui">
 
-</div>
-
-<div class="music" onclick="musicToggle()" id="musicBtn">
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
 MUSICA OFF
-</div>
+</button>
 
-<div class="start" onclick="startRace()" id="startBtn">
+<button class="start-btn" onclick="startSequence()">
 INICIAR
-</div>
-
-<div class="cards" id="cards">
-
-<div class="card">PILOTO 1</div>
-<div class="card">PILOTO 2</div>
-<div class="card">PILOTO 3</div>
+</button>
 
 </div>
 
-<audio id="music" loop>
-<source src="music.mp3">
-</audio>
+<!-- TARJETAS -->
+
+<div class="menu-container" id="menu">
+
+<div class="menu-card" onclick="go('campeonatos.html')">
+<img src="campeonatos.png">
+</div>
+
+<div class="menu-card" onclick="go('pilotos.html')">
+<img src="pilotos.png">
+</div>
+
+<div class="menu-card" onclick="go('pistas.html')">
+<img src="pistas.png">
+</div>
+
+<div class="menu-card" onclick="go('escuderias.html')">
+<img src="escuderias.png">
+</div>
+
+</div>
+
+<!-- EQUIPO FIA -->
+
+<div class="fia-team" id="fiaTeam">
+<div>Comisario FIA — Gennaro Foressi</div>
+<div>Comisario FIA — Ethan Collins</div>
+<div>SubComisario FIA — César Bustos</div>
+</div>
+
+<div class="fia-button" id="fiaBtn" onclick="go('fia.html')">
+EQUIPO FIA
+</div>
+
+<audio id="bgMusic" src="f1mp3.mp3" loop></audio>
 
 <script>
 
-let music=false
+const music=document.getElementById("bgMusic");
+const btn=document.getElementById("musicBtn");
+const menu=document.getElementById("menu");
+const team=document.getElementById("fiaTeam");
+const fiaBtn=document.getElementById("fiaBtn");
+const lights=document.getElementById("lights");
+const overlay=document.getElementById("overlay");
 
-function musicToggle(){
+music.volume=0.5;
 
-let m=document.getElementById("music")
+document.addEventListener("click",()=>{
+music.play();
+btn.textContent="MUSICA ON";
+},{once:true});
 
-if(!music){
-m.play()
-document.getElementById("musicBtn").innerText="MUSICA ON"
-music=true
+function toggleMusic(){
+
+if(music.paused){
+music.play();
+btn.textContent="MUSICA ON";
 }else{
-m.pause()
-document.getElementById("musicBtn").innerText="MUSICA OFF"
-music=false
+music.pause();
+btn.textContent="MUSICA OFF";
 }
 
 }
 
-/* SEMAFORO */
+/* SECUENCIA F1 */
 
-function startRace(){
+function startSequence(){
 
-document.getElementById("startBtn").style.display="none"
+document.querySelector(".start-btn").style.display="none";
+lights.style.opacity="1";
 
-let lights=[
-document.getElementById("l1"),
-document.getElementById("l2"),
-document.getElementById("l3"),
-document.getElementById("l4"),
-document.getElementById("l5")
-]
+const bulbs=document.querySelectorAll(".light");
 
-let i=0
+bulbs.forEach((light,i)=>{
 
-let red=setInterval(()=>{
+setTimeout(()=>{
+light.classList.add("on");
+},i*700);
 
-lights[i].classList.add("red")
-i++
-
-if(i==5){
-
-clearInterval(red)
+});
 
 setTimeout(()=>{
 
-lights.forEach(l=>{
-l.classList.remove("red")
-l.classList.add("green")
-})
+bulbs.forEach(light=>{
+light.classList.remove("on");
+light.classList.add("green");
+});
 
-go()
-
-},800)
-
-}
-
-},700)
-
-}
-
-function go(){
-
-document.getElementById("video-bg").classList.add("dark")
+},3800);
 
 setTimeout(()=>{
 
-document.getElementById("cards").style.display="flex"
+lights.style.opacity="0";
 
-},800)
+overlay.classList.add("active");
 
+menu.classList.add("active");
+
+team.style.display="none";
+
+fiaBtn.style.display="block";
+
+},4800);
+
+}
+
+function go(link){
+window.location.href=link;
 }
 
 </script>
