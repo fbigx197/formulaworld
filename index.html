@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -92,22 +93,31 @@ transition:.3s;
 background:#ff0000;
 }
 
+/* BOTON INICIAR */
+
 .start-btn{
-padding:14px 30px;
+padding:16px 35px;
 border-radius:14px;
-border:1px solid rgba(255,0,0,.5);
-background:rgba(0,0,0,.75);
+border:none;
+background:#ff0000;
 color:white;
 letter-spacing:2px;
+font-weight:700;
 cursor:pointer;
-transition:.4s;
+
+animation:pulse 1.4s infinite;
 }
 
-.start-btn:hover{
-transform:scale(1.08);
-box-shadow:
-0 0 10px #ff0000,
-0 0 30px rgba(255,0,0,.7);
+@keyframes pulse{
+0%{
+box-shadow:0 0 5px #ff0000;
+}
+50%{
+box-shadow:0 0 20px #ff0000,0 0 40px rgba(255,0,0,.8);
+}
+100%{
+box-shadow:0 0 5px #ff0000;
+}
 }
 
 /* MENU TARJETAS */
@@ -156,31 +166,47 @@ box-shadow:
 transform:scale(1.12);
 }
 
-/* FIA BOTON */
+/* EQUIPO FIA LISTA */
 
-.fia-card{
+.fia-team{
 position:fixed;
-bottom:100px;
+bottom:120px;
 left:50%;
 transform:translateX(-50%);
-padding:14px 30px;
-border-radius:14px;
-background:rgba(0,0,0,.75);
-border:1px solid rgba(255,0,0,.5);
+text-align:center;
+font-size:14px;
 letter-spacing:2px;
-cursor:pointer;
 opacity:0;
-transition:1s;
 }
 
-.fia-card.active{
+.fia-team.active{
 opacity:1;
 }
 
-.fia-card:hover{
-box-shadow:
-0 0 10px #ff0000,
-0 0 30px rgba(255,0,0,.8);
+.fia-team div{
+margin:6px 0;
+transform:translateY(-30px);
+opacity:0;
+animation:drop 0.7s forwards;
+}
+
+.fia-team div:nth-child(1){animation-delay:.3s;}
+.fia-team div:nth-child(2){animation-delay:.6s;}
+.fia-team div:nth-child(3){animation-delay:.9s;}
+.fia-team div:nth-child(4){animation-delay:1.2s;}
+
+@keyframes drop{
+
+0%{
+transform:translateY(-40px);
+opacity:0;
+}
+
+100%{
+transform:translateY(0);
+opacity:1;
+}
+
 }
 
 </style>
@@ -234,20 +260,24 @@ INICIAR
 
 </div>
 
-<div class="fia-card" id="fiaBtn" onclick="go('fia.html')">
-EQUIPO FIA
+<!-- EQUIPO FIA -->
+
+<div class="fia-team" id="fiaTeam">
+<div>Comisario FIA — Gennaro Foressi</div>
+<div>Comisario FIA — Ethan Collins</div>
+<div>SubComisario FIA — César Bustos</div>
 </div>
 
 <audio id="bgMusic" src="f1mp3.mp3" loop></audio>
 
 <script>
 
-const music = document.getElementById("bgMusic");
-const btn = document.getElementById("musicBtn");
-const menu = document.getElementById("menu");
-const fia = document.getElementById("fiaBtn");
+const music=document.getElementById("bgMusic");
+const btn=document.getElementById("musicBtn");
+const menu=document.getElementById("menu");
+const team=document.getElementById("fiaTeam");
 
-music.volume = 0.5;
+music.volume=0.5;
 
 document.addEventListener("click",()=>{
 music.play();
@@ -269,17 +299,18 @@ btn.textContent="MUSICA OFF";
 function startSite(){
 
 menu.classList.add("active");
-fia.classList.add("active");
+team.classList.add("active");
 
 document.querySelector(".start-btn").style.display="none";
 
 }
 
 function go(link){
-window.location.href = link;
+window.location.href=link;
 }
 
 </script>
 
 </body>
 </html>
+```
